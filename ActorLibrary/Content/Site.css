@@ -22,3 +22,27 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.profile-img {
+    overflow: hidden;
+   height: 200px;
+}
+
+.input-box {
+    border: none;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    padding: 6px;
+}
+
+.input-box:hover {
+    background: #e8e8e8;
+}
+
+.alternate {
+    background: #fafaf3;
+}
+
+.actor-box:hover {
+    background: #e8e8e8;
+}

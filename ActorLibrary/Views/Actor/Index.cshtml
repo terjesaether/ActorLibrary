@@ -1,0 +1,57 @@
+﻿@model IEnumerable<ActorLibrary.Models.Actor>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            @Html.ActionLink("Ny skuespiller", "Create", "Actor", null, new { @class = "btn btn-default" })
+        </div>
+        <h4>Actor</h4>
+        <hr />
+
+        @foreach (var item in Model)
+
+        {
+            <div class="col-md-4 actor-box">
+                <div class="profile-img">
+                    <img class="img-responsive img-rounded" src="@item.ImgUrl" alt="Alternate Text" />
+                </div>
+                <div class="col-md-12">
+                    <h2>
+                        @Html.DisplayFor(modelItem => item.FullName)
+                    </h2>
+                    <br />
+                    @Html.DisplayFor(modelItem => item.Address)
+
+                    <ul>
+                        @foreach (var vt in item.VoiceTests)
+
+                {
+                            <li>
+
+
+                                <a href="@vt.VoiceTestUrl">@vt.VoiceTestTitle</a>
+
+
+                            </li>
+
+                        }
+
+                    </ul>
+
+                    <p>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ActorId }) |
+                        @Html.ActionLink("Back to List", "Index") |
+                        @Html.ActionLink("Legg til stemmeprøve", "AddAudioFiles", "Actor", new { id = item.ActorId }, null)
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

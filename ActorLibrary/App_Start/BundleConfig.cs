@@ -23,9 +23,34 @@ namespace ActorLibrary
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/soundmanager").Include(
+                      "~/Scripts/soundmanager/script/soundmanager2.js",
+                      "~/Scripts/360-player/script/360player.js",
+                      "~/Scripts/360-player/script/berniecode-animator.js",
+                      "~/Scripts/Soundmanager.js"
+                      ));
+
+            bundles.Add(new ScriptBundle("~/bundles/mediaelementplayer").Include(
+                      "~/Scripts/mediaelement/mediaelement-and-player.min.js"
+
+                      ));
+
+            bundles.Add(new ScriptBundle("~/bundles/fileupload").Include(
+                      "~/Scripts/jQuery-file-upload/js/jquery.fileupload.js",
+                      "~/Scripts/jQuery-file-upload/js/jquery.fileupload-audio.js"
+                      ));
+
+            bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
+                      "~/Scripts/Scripts/knockout.js"
+                      ));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Scripts/mediaelement/mediaelementplayer.css",
+                      "~/Scripts/jQuery-file-upload/css/jquery.fileupload.css"
+
+                      ));
         }
     }
 }

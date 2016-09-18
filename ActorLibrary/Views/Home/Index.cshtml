@@ -1,31 +1,94 @@
-﻿@{
+﻿@model IEnumerable<ActorLibrary.Models.Actor>
+
+@{
     ViewBag.Title = "Home Page";
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>Skuespillerarkiv</h1>
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <div class="col-md-12">
+        @Html.ActionLink("Ny skuespiller", "Create", "Actor", null, new { @class = "btn btn-default" })
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    <br />
+    <div class="row">
+        @{int counter = 1;
+            string alternateBgr = "";}
+
+        @foreach (var item in Model)
+        {
+            if (counter % 2 == 0)
+            {
+                alternateBgr = "alternate";
+            }
+            else
+            {
+                alternateBgr = "";
+            }
+
+            <div class="col-md-4 @alternateBgr actor-box">
+                <div class="profile-img">
+                    
+                    <img class="img-responsive" src="@item.ImgUrl" alt="Profil" />
+                </div>
+                <div class="col-md-12">
+                    <h2>
+                        @Html.DisplayFor(modelItem => item.FullName)
+                    </h2>
+                    <br />
+                    @Html.DisplayFor(modelItem => item.Address)
+
+                    <ul class="list-group">
+
+                        @foreach (var vt in item.VoiceTests.Take(3))
+                {
+
+                            <li class="list-group-item">
+                                @Html.DisplayFor(vtItem => vt.VoiceTestTitle)
+                                <audio controls>
+                                    <source src="@vt.VoiceTestUrl" type="audio/mp3" />
+                                </audio>
+
+                            </li>
+
+                        }
+                        <li class="list-group-item">@Html.ActionLink("Se flere stemmeprøver ...", "Details", "Home", new { id = item.ActorId }, new { @class = "btn btn-default" })</li>
+                    </ul>
+
+                    <p>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ActorId }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Detaljer", "Details", "Home", new { id = item.ActorId }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Legg til stemmeprøve", "AddAudioFiles", "Actor", new { id = item.ActorId }, new { @class = "btn btn-default" })
+
+                    </p>
+                </div>
+            </div>
+
+            if (counter % 3 == 0)
+            {
+                <div class="row"></div>
+            }
+
+            counter++;
+
+        }
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+
+
+
+    @section scripts {
+        <script>
+            $('video,audio').mediaelementplayer(
+                {
+                    audioWidth: "100%",
+                    startVolume: 0.8,
+                    pauseOtherPlayers: true,
+                    enableKeyboard: true
+                }
+
+                );
+        </script>
+    }
 </div>

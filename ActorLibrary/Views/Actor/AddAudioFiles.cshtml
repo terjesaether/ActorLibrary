@@ -1,0 +1,75 @@
+﻿@model ActorLibrary.Models.Actor
+
+@{
+    ViewBag.Title = "AddAudioFiles";
+}
+
+
+<h1>Legg til stemmeprøver for @Model.FullName</h1>
+<ul class="list-group">
+    @foreach (var file in Model.VoiceTests)
+    {
+        <li class="list-group-item">
+            @file.VoiceTestTitle.ToString() -
+            <audio controls>
+                <source src="@file.VoiceTestUrl" type="audio/mp3" />
+            </audio>
+        </li>
+    }
+</ul>
+
+
+
+@using (Html.BeginForm("AddAudioFiles", "Actor", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ActorId)
+
+        <div class="form-group">
+            
+            <div class="col-md-12">
+                <input type="text" class="input-box" placeholder="Stemmeprøvetittel" name="title" id="audioTitle" />
+            </div>
+            <br />
+            <div class="col-md-12">
+                
+                <input type="file" class="btn btn-default" placeholder="Velg stemmeprøve" name="audioFile" id="audioFile" value="Velg stemmeprøve" />
+                @ViewBag.Error
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-12">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Tilbake til oversikt", "Index", "Home", null, null)
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+        $('video,audio').mediaelementplayer(
+            {
+                audioWidth: "100%",
+                startVolume: 0.8,
+                pauseOtherPlayers: true,
+                enableKeyboard: true
+
+            }
+
+            );
+</script>
+}
+

@@ -168,26 +168,75 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ActorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609161723457_Init.cs" />
+    <Compile Include="Migrations\201609161723457_Init.Designer.cs">
+      <DependentUpon>201609161723457_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609161746174_AddedVoiceTests.cs" />
+    <Compile Include="Migrations\201609161746174_AddedVoiceTests.Designer.cs">
+      <DependentUpon>201609161746174_AddedVoiceTests.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609171159375_AddedRequired.cs" />
+    <Compile Include="Migrations\201609171159375_AddedRequired.Designer.cs">
+      <DependentUpon>201609171159375_AddedRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Actor.cs" />
+    <Compile Include="Models\ActorContext.cs" />
+    <Compile Include="Models\ActorViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="audio\siri_1.mp3" />
+    <Content Include="audio\siri_2.mp3" />
+    <Content Include="audio\voicetest_andrew_nilsen.mp3" />
+    <Content Include="audio\voicetest_andrew_nilsen_Test_555.mp3" />
+    <Content Include="audio\voicetest_erik_skøld.mp3" />
+    <Content Include="audio\voicetest_erik_skøld_Test 444.mp3" />
+    <Content Include="audio\voicetest_gunnar_gunnar.mp3" />
+    <Content Include="audio\voicetest_rt_rt.mp3" />
+    <Content Include="audio\voicetest_va_va.mp3" />
+    <Content Include="audio\voicetest_ya_ya.mp3" />
+    <Content Include="audio\_andrew_nilsen_Test_666_1.mp3" />
+    <Content Include="audio\_guro_gaunnuers_Den_andre_0.mp3" />
+    <Content Include="audio\_randi_raaa_Første__0.mp3" />
+    <Content Include="audio\_randi_rulle_Ttttttt_0.mp3" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\site.css" />
+    <Content Include="img\profile_2.jpg" />
+    <Content Include="img\profile_erik_skold.jpg" />
+    <Content Include="img\profile_frank_roger.jpg" />
+    <Content Include="img\profile_gunnar_gunnar.jpg" />
+    <Content Include="img\profile_guro_gaunnuers.jpg" />
+    <Content Include="img\profile_hans_petter.jpg" />
+    <Content Include="img\profile_img_Turid.jpg" />
+    <Content Include="img\profile_randi_raaa_0.jpg" />
+    <Content Include="img\profile_randi_rulle.jpg" />
+    <Content Include="img\profile_roger_roger.jpg" />
+    <Content Include="img\profile_rt_rt.jpg" />
+    <Content Include="img\profile_tor_bjarne.jpg" />
+    <Content Include="img\profile_va_va.jpg" />
+    <Content Include="img\profile_ya_ya.jpg" />
+    <Content Include="img\Ryan-Gosling.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="img\profile_img_turid_persen" />
+    <Content Include="img\profile_turid_persen" />
+    <None Include="Properties\PublishProfiles\dubbing.terjesaether.com.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -196,9 +245,37 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Knockout.js" />
+    <Content Include="Scripts\mediaelement\background.png" />
+    <Content Include="Scripts\mediaelement\bigplay.fw.png" />
+    <Content Include="Scripts\mediaelement\bigplay.png" />
+    <Content Include="Scripts\mediaelement\bigplay.svg" />
+    <Content Include="Scripts\mediaelement\controls-ted.png" />
+    <Content Include="Scripts\mediaelement\controls-wmp-bg.png" />
+    <Content Include="Scripts\mediaelement\controls-wmp.png" />
+    <Content Include="Scripts\mediaelement\controls.fw.png" />
+    <Content Include="Scripts\mediaelement\controls.png" />
+    <Content Include="Scripts\mediaelement\controls.svg" />
+    <Content Include="Scripts\mediaelement\flashmediaelement-cdn.swf" />
+    <Content Include="Scripts\mediaelement\flashmediaelement-debug.swf" />
+    <Content Include="Scripts\mediaelement\flashmediaelement.swf" />
+    <Content Include="Scripts\mediaelement\jumpforward.png" />
+    <Content Include="Scripts\mediaelement\loading.gif" />
+    <Content Include="Scripts\mediaelement\mediaelement-and-player.js" />
+    <Content Include="Scripts\mediaelement\mediaelement-and-player.min.js" />
+    <Content Include="Scripts\mediaelement\mediaelement.js" />
+    <Content Include="Scripts\mediaelement\mediaelement.min.js" />
+    <Content Include="Scripts\mediaelement\mediaelementplayer.css" />
+    <Content Include="Scripts\mediaelement\mediaelementplayer.js" />
+    <Content Include="Scripts\mediaelement\mediaelementplayer.min.css" />
+    <Content Include="Scripts\mediaelement\mediaelementplayer.min.js" />
+    <Content Include="Scripts\mediaelement\mejs-skins.css" />
+    <Content Include="Scripts\mediaelement\silverlightmediaelement.xap" />
+    <Content Include="Scripts\mediaelement\skipback.png" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Soundmanager.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -234,6 +311,10 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Actor\Index.cshtml" />
+    <Content Include="Views\Actor\Create.cshtml" />
+    <Content Include="Views\Actor\AddAudioFiles.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -245,6 +326,17 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201609161723457_Init.resx">
+      <DependentUpon>201609161723457_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609161746174_AddedVoiceTests.resx">
+      <DependentUpon>201609161746174_AddedVoiceTests.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609171159375_AddedRequired.resx">
+      <DependentUpon>201609171159375_AddedRequired.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
