@@ -32,16 +32,24 @@ namespace ActorLibrary.Models
 
         [Display(Name = "Adresse")]
         public string Address { get; set; }
+
+        [Display(Name = "Bilde")]
         public string ImgUrl { get; set; }
+
+        [Display(Name = "Kommentar")]
+        [MaxLength(1024)]
+        public string Comment { get; set; }
+
+        [Display(Name = "Kjønn")]
+        public string Gender { get; set; }
 
         public virtual List<VoiceTest> VoiceTests { get; set; }
 
+        [Display(Name = "Fullt navn")]
         public string FullName
         {
             get { return FirstName + " " + LastName; }
         }
-
-
 
         public string Filename
         {
@@ -53,17 +61,17 @@ namespace ActorLibrary.Models
 
     public class VoiceTest
     {
-
-
         [Key]
         public int VoiceTestId { get; set; }
         public string VoiceTestTitle { get; set; }
         public string VoiceTestUrl { get; set; }
     }
 
-    public enum FileType
+    public class Gender
     {
-        Avatar = 1, Photo
+        [Key]
+        public int GenderId { get; set; }
+        public string GenderName { get; set; }
     }
 
 }

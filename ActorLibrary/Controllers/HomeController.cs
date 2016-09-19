@@ -37,5 +37,26 @@ namespace ActorLibrary.Controllers
 
             return View();
         }
+        public ActionResult Search(string searchString)
+        {
+            var result = new List<Actor>();
+
+            var actors = from a in _db.Actors
+                         select a;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                actors = actors.Where(a => a.FirstName.Contains(searchString)
+                                       || a.LastName.Contains(searchString));
+            }
+
+            result = actors.ToList();
+
+            if (actors.Count() == 0)
+            {
+                ViewBag.SearchMessage = "Ingen resultater";
+            }
+            return View(result);
+        }
     }
 }

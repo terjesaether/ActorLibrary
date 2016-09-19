@@ -35,12 +35,13 @@ namespace ActorLibrary.Controllers
         // GET: Actor/Create
         public ActionResult Create()
         {
-            return View();
+            var viewModel = new CreateViewModel();
+            return View(viewModel);
         }
 
         // POST: Actor/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "LastName, FirstName, Address, Phone, Mail")]Actor actor, string audioTitle, HttpPostedFileBase uploadAudio, HttpPostedFileBase uploadImg, IEnumerable<HttpPostedFileBase> audioFiles)
+        public ActionResult Create([Bind(Include = "LastName, FirstName, Address, Phone, Mail, Comment")]Actor actor, string Gender, string audioTitle, HttpPostedFileBase uploadAudio, HttpPostedFileBase uploadImg)
         {
             try
             {
@@ -48,15 +49,6 @@ namespace ActorLibrary.Controllers
                 {
                     string pathToSaveAudio = Server.MapPath("~/audio/");
                     string pathToSaveImg = Server.MapPath("~/img/");
-
-                    if (audioFiles != null & audioFiles.Count() > 0)
-                    {
-                        foreach (var item in audioFiles)
-                        {
-
-                        }
-                    }
-
 
                     if (uploadImg != null && uploadImg.ContentLength > 0)
                     {
@@ -82,6 +74,13 @@ namespace ActorLibrary.Controllers
                         actor.VoiceTests.Add(vt);
                         _db.VoiceTests.Add(vt);
                     }
+
+                    if (!string.IsNullOrEmpty(Gender))
+                    {
+                        var gender = _db.Genders.Find(Convert.ToInt32(Gender));
+                        actor.Gender = gender.GenderName.ToString();
+                    }
+
                     _db.Actors.Add(actor);
                     _db.SaveChanges();
                     return RedirectToAction("Index", "Home", null);

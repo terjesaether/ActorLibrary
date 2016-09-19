@@ -3,10 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The description of my page" />
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+    
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -17,14 +19,23 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    
+                    <li>@Html.ActionLink("Heim", "Index", "Home")</li>
+
                     <li>@Html.ActionLink("Skuespillerarkiv", "Index", "Actor")</li>
                 </ul>
+
+                @using (Html.BeginForm("Search", "Home", null, FormMethod.Post, new { @class = "navbar-form navbar-right" }))
+                {
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search" name="searchString">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+                }
+
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ActorLibrary.Models.Actor>
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h3>@ViewBag.SearchMessage</h3>
+
+<p>
+    @Html.ActionLink("Ny skuespiller", "Create", "Actor", null, null )
+</p>
+<div class="row">
+    <div class="col-md-2 text-left"><h3>@Html.DisplayNameFor(model => model.FullName):</h3></div>
+    <div class="col-md-1 text-left"><h3>@Html.DisplayNameFor(model => model.Gender):</h3></div>
+    <div class="col-md-2 text-left"><h3>@Html.DisplayNameFor(model => model.Mail):</h3></div>
+    <div class="col-md-1 text-left"><h3>@Html.DisplayNameFor(model => model.Phone):</h3></div>
+
+    <div class="col-md-1"><h3>Bilde:</h3></div>
+    <div class="col-md-4"><h3>Kommentar:</h3></div>
+    <div class="col-md-1"><h3></h3></div>
+    </div>
+
+
+
+    @foreach (var item in Model)
+    {
+        <div class="row">
+            <div class="col-md-2 text-left">@Html.DisplayFor(modelItem => item.FullName)</div>
+            <div class="col-md-1 text-left">@Html.DisplayFor(modelItem => item.Gender)</div>
+            <div class="col-md-2 text-left">@Html.DisplayFor(modelItem => item.Mail)</div>
+            <div class="col-md-1 text-left">@Html.DisplayFor(modelItem => item.Phone)</div>
+
+
+            <div class="col-md-1"><img class="img-responsive img-margin img-rounded" src="@item.ImgUrl" alt="@item.FullName" /></div>
+
+            <div class="col-md-4">@Html.DisplayFor(modelItem => item.Comment)</div>
+
+            <div class="col-md-1">
+                @Html.ActionLink(" ", "AddAudioFiles", "Actor", new { id = item.ActorId }, new { @class = "glyphicon glyphicon-pencil" })
+                @Html.ActionLink(" ","Details", new { id = item.ActorId }, new { @class = "glyphicon glyphicon-user" })
+                @Html.ActionLink(" ", "Delete", new { id = item.ActorId }, new { @class = "glyphicon glyphicon-remove" })
+                
+            </div>
+        </div>
+    }
+
+

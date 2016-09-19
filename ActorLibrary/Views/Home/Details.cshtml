@@ -4,7 +4,7 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Details Home</h2>
 
 <div>
     <h4>Actor</h4>
@@ -55,7 +55,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ImgUrl)
+            <img src="@Model.ImgUrl" alt="@Model.FullName" />
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
         </dd>
 
     </dl>

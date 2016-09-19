@@ -186,11 +186,32 @@
     <Compile Include="Migrations\201609171159375_AddedRequired.Designer.cs">
       <DependentUpon>201609171159375_AddedRequired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609191740390_AddedCommentField.cs" />
+    <Compile Include="Migrations\201609191740390_AddedCommentField.Designer.cs">
+      <DependentUpon>201609191740390_AddedCommentField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609191800515_AddedGender.cs" />
+    <Compile Include="Migrations\201609191800515_AddedGender.Designer.cs">
+      <DependentUpon>201609191800515_AddedGender.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609191803562_AddedGenderVirtual.cs" />
+    <Compile Include="Migrations\201609191803562_AddedGenderVirtual.Designer.cs">
+      <DependentUpon>201609191803562_AddedGenderVirtual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609191817512_AddedGenderClass.cs" />
+    <Compile Include="Migrations\201609191817512_AddedGenderClass.Designer.cs">
+      <DependentUpon>201609191817512_AddedGenderClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609192104242_AddedGenderString.cs" />
+    <Compile Include="Migrations\201609192104242_AddedGenderString.Designer.cs">
+      <DependentUpon>201609192104242_AddedGenderString.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Actor.cs" />
     <Compile Include="Models\ActorContext.cs" />
     <Compile Include="Models\ActorViewModel.cs" />
+    <Compile Include="Models\CreateViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -315,6 +336,7 @@
     <Content Include="Views\Actor\Create.cshtml" />
     <Content Include="Views\Actor\AddAudioFiles.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -336,6 +358,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609171159375_AddedRequired.resx">
       <DependentUpon>201609171159375_AddedRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609191740390_AddedCommentField.resx">
+      <DependentUpon>201609191740390_AddedCommentField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609191800515_AddedGender.resx">
+      <DependentUpon>201609191800515_AddedGender.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609191803562_AddedGenderVirtual.resx">
+      <DependentUpon>201609191803562_AddedGenderVirtual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609191817512_AddedGenderClass.resx">
+      <DependentUpon>201609191817512_AddedGenderClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609192104242_AddedGenderString.resx">
+      <DependentUpon>201609192104242_AddedGenderString.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

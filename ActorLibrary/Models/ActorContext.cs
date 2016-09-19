@@ -17,5 +17,6 @@ namespace ActorLibrary.Models
 
         public DbSet<Actor> Actors { get; set; }
         public DbSet<VoiceTest> VoiceTests { get; set; }
+        public DbSet<Gender> Genders { get; set; }
     }
 }

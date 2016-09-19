@@ -31,7 +31,7 @@ namespace ActorLibrary
                       ));
 
             bundles.Add(new ScriptBundle("~/bundles/mediaelementplayer").Include(
-                      "~/Scripts/mediaelement/mediaelement-and-player.min.js"
+                      "~/Scripts/mediaelement/mediaelement-and-player.js"
 
                       ));
 
@@ -46,10 +46,9 @@ namespace ActorLibrary
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css",
                       "~/Scripts/mediaelement/mediaelementplayer.css",
-                      "~/Scripts/jQuery-file-upload/css/jquery.fileupload.css"
-
+                      "~/Scripts/jQuery-file-upload/css/jquery.fileupload.css",
+                      "~/Content/site.css"
                       ));
         }
     }

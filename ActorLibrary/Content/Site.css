@@ -46,3 +46,7 @@ textarea {
 .actor-box:hover {
     background: #e8e8e8;
 }
+
+.img-margin {
+    padding: 3px;
+}
