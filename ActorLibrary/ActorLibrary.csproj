@@ -246,6 +246,10 @@
     <Compile Include="Migrations\201609211743493_AddedAddedDateAddedConstr.Designer.cs">
       <DependentUpon>201609211743493_AddedAddedDateAddedConstr.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609211841199_AddedAgeField.cs" />
+    <Compile Include="Migrations\201609211841199_AddedAgeField.Designer.cs">
+      <DependentUpon>201609211841199_AddedAgeField.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Actor.cs" />
@@ -379,6 +383,7 @@
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Home\Edit.cshtml" />
     <Content Include="Views\Home\Create.cshtml" />
+    <Content Include="Views\Home\AddAudioFiles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -445,6 +450,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609211743493_AddedAddedDateAddedConstr.resx">
       <DependentUpon>201609211743493_AddedAddedDateAddedConstr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609211841199_AddedAgeField.resx">
+      <DependentUpon>201609211841199_AddedAgeField.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

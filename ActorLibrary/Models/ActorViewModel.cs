@@ -10,6 +10,6 @@ namespace ActorLibrary.Models
     {
         public Actor Actor { get; set; }
 
-        public List<VoiceTest> VoiceTests { get; set; }
+        public Gender Gender { get; set; }
     }
 }

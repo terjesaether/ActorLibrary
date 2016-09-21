@@ -17,24 +17,6 @@ namespace ActorLibrary.Models
 
         public IEnumerable<SelectListItem> GenderItems { get; set; }
 
-
-        //public IEnumerable<SelectListItem> GenderItems
-        //{
-
-        //    get
-        //    {
-        //        var allGenders = _db.Genders.Select(f => new SelectListItem
-        //        {
-        //            Value = f.GenderId.ToString(),
-        //            Text = f.GenderName,
-        //        });
-
-        //        // IEnumerable < SelectListItem > myList;
-        //        // myList = allGenders.ToList();
-        //        return allGenders;
-        //    }
-        //}
-
         public IEnumerable<SelectListItem> GetGenderItems(string value)
         {
             if (value != null)

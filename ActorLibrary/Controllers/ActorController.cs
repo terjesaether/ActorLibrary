@@ -105,50 +105,7 @@ namespace ActorLibrary.Controllers
         }
 
 
-        public ActionResult AddAudioFiles(int? id)
-        {
-            if (id == null)
-            {
 
-                return HttpNotFound();
-                //return View("Index");
-            }
-            var actor = _db.Actors.Find(id);
-            return View(actor);
-        }
-
-        [HttpPost]
-        public ActionResult AddAudioFiles(int? id, string title, HttpPostedFileBase audioFile)
-        {
-            var actor = _db.Actors.Find(id);
-            var vt = new VoiceTest();
-
-            if (audioFile.ContentType != "audio/mpeg" || audioFile.ContentLength > 100000000)
-            {
-                ViewBag.Error = "Feil filtype eller for stor fil";
-                return View(actor);
-            }
-
-            if (ModelState.IsValid)
-            {
-                string pathToSaveAudio = Server.MapPath("~/audio/");
-
-
-                if (audioFile != null & audioFile.ContentLength > 0)
-                {
-                    string filename = actor.Filename + "_" + title.Replace(" ", "_") + "_" + actor.ActorId + ".mp3";
-                    string fullFilename = Path.Combine(pathToSaveAudio, filename);
-                    audioFile.SaveAs(fullFilename);
-                    vt.VoiceTestTitle = title;
-                    vt.VoiceTestUrl = "/audio/" + filename.ToString();
-                    actor.VoiceTests.Add(vt);
-                    _db.VoiceTests.Add(vt);
-
-                }
-            }
-            _db.SaveChanges();
-            return View(actor);
-        }
 
 
         // GET: Actor/Edit/5

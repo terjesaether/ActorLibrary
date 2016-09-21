@@ -7,20 +7,31 @@
 
 <h1>Legg til stemmeprøver for @Model.FullName</h1>
 <div class="row">
-    
-        @foreach (var file in Model.VoiceTests)
-        {
-            <div class="col-md-4">
-                @file.VoiceTestTitle.ToString() -
+
+    @{int counter = 1;}
+
+    @foreach (var file in Model.VoiceTests)
+    {
+        <div class="col-md-4 voicetest-box">
+            <p>@file.VoiceTestTitle.ToString()</p>
+            <div class="audio-container">
                 <audio controls>
                     <source src="@file.VoiceTestUrl" type="audio/mp3" />
                 </audio>
             </div>
-        }    
+        </div>
+
+        if (counter % 3 == 0)
+        {
+            <div class="row"></div>
+        }
+
+        counter++;
+    }
 </div>
 
 
-@using (Html.BeginForm("AddAudioFiles", "Actor", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("AddAudioFiles", "Home", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -31,13 +42,13 @@
         @Html.HiddenFor(model => model.ActorId)
 
         <div class="form-group">
-            
+
             <div class="col-md-12">
                 <input type="text" class="input-box" placeholder="Stemmeprøvetittel" name="title" id="audioTitle" />
             </div>
             <br />
             <div class="col-md-12">
-                
+
                 <input type="file" class="btn btn-default" placeholder="Velg stemmeprøve" name="audioFile" id="audioFile" value="Velg stemmeprøve" />
                 @ViewBag.Error
             </div>
@@ -47,7 +58,7 @@
 
         <div class="form-group">
             <div class="col-md-12">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Legg til ..." class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -59,7 +70,7 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-<script>
+    <script>
         $('video,audio').mediaelementplayer(
             {
                 audioWidth: "100%",
@@ -70,6 +81,6 @@
             }
 
             );
-</script>
+    </script>
 }
 

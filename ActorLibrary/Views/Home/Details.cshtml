@@ -1,11 +1,11 @@
-﻿@model ActorLibrary.Models.Actor
+﻿@model ActorLibrary.Models.ActorViewModel
 
 @{
     ViewBag.Title = "Details";
 }
 
 <h2>Details Home</h2>
-<h3>@Html.DisplayFor(model => model.FullName)</h3>
+<h3>@Html.DisplayFor(model => model.Actor.FullName)</h3>
 <div>
     
     <hr />
@@ -13,75 +13,83 @@
         <div class="col-md-4">
             <dl class="dl-horizontal">
                 <dt>
-                    @Html.DisplayNameFor(model => model.FirstName)
+                    @Html.DisplayNameFor(model => model.Actor.FirstName)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.FirstName)
+                    @Html.DisplayFor(model => model.Actor.FirstName)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.LastName)
+                    @Html.DisplayNameFor(model => model.Actor.LastName)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.LastName)
+                    @Html.DisplayFor(model => model.Actor.LastName)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.BirthDate)
+                    @Html.DisplayNameFor(model => model.Actor.BirthDate)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.BirthDate)
+                    @Html.DisplayFor(model => model.Actor.BirthDate)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.Mail)
+                    @Html.DisplayNameFor(model => model.Actor.Age)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Mail)
+                    @Html.DisplayFor(model => model.Actor.Age)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.Phone)
+                    @Html.DisplayNameFor(model => model.Actor.Mail)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Phone)
+                    @Html.DisplayFor(model => model.Actor.Mail)
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.Address)
+                    @Html.DisplayNameFor(model => model.Actor.Phone)
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Address)
+                    @Html.DisplayFor(model => model.Actor.Phone)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Actor.Address)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Actor.Address)
                 </dd>
 
                 
                 <dt>
-                    @Html.DisplayNameFor(model => model.Gender)
+                    Kjønn:
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Gender)
+                    @ViewBag.GenderName
                 </dd>
 
             </dl>
         </div>
         <div class="col-md-4">
             <strong>Kommentar:</strong>
-            @Html.DisplayFor(model => model.Comment)
+            @Html.DisplayFor(model => model.Actor.Comment)
         </div>
         <div class="col-md-4">
-            <img class="img-responsive" src="@Model.ImgUrl" alt="@Model.FullName" />
+            <img class="img-responsive" src="@Model.Actor.ImgUrl" alt="@Model.Actor.FullName" />
         </div>
         
     </div>
     <div class="row">
-        @foreach (var file in Model.VoiceTests)
+        @foreach (var file in Model.Actor.VoiceTests)
         {
             <div class="col-md-4">
                 @file.VoiceTestTitle.ToString() -
@@ -95,7 +103,7 @@
 </div>
 <br />
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ActorId }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Actor.ActorId }) |
     @Html.ActionLink("Tilbake", "Index")
 </p>
 

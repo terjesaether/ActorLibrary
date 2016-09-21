@@ -14,10 +14,41 @@ namespace ActorLibrary.Controllers
     {
         private ActorContext _db = new ActorContext();
 
+        private List<SelectListItem> sortByList = new List<SelectListItem>
+        {
+                new SelectListItem { Value = "FirstName", Text = "Fornavn"},
+                new SelectListItem { Value = "LastName", Text = "Etternavn"},
+                new SelectListItem { Value = "AddedDate", Text = "Lagt til dato"},
+                new SelectListItem { Value = "Age", Text = "Alder"}
+        };
+
         public ActionResult Index()
         {
+            ViewBag.sortList = sortByList;
+
             return View(_db.Actors.
-                //OrderBy(m => m.LastName).
+                ToList());
+        }
+
+        [HttpPost]
+        public ActionResult Index(string sortBy)
+        {
+
+            Func<Actor, Object> orderByFunc = null;
+
+            if (sortBy == "LastName")
+                orderByFunc = item => item.LastName;
+            else if (sortBy == "FirstName")
+                orderByFunc = item => item.FirstName;
+            else if (sortBy == "AddedDate")
+                orderByFunc = item => item.AddedDate;
+            else if (sortBy == "Age")
+                orderByFunc = item => item.Age;
+
+            ViewBag.sortList = sortByList;
+
+            return View(_db.Actors.
+                OrderByDescending(orderByFunc).
                 ToList());
         }
 
@@ -29,17 +60,21 @@ namespace ActorLibrary.Controllers
 
         public ActionResult Details(int? id)
         {
-            var actor = _db.Actors.Find(id);
+            var actor = _db.Actors.Find(id.Value);
+            var actorGenderId = actor.ActorGenderId;
+            var gender = _db.Genders.Find(Convert.ToInt32(actorGenderId));
 
-            return View(actor);
+            var viewModel = new ActorViewModel
+            {
+                Actor = actor,
+                Gender = gender
+            };
+
+            ViewBag.GenderName = gender.GenderName;
+            return View(viewModel);
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
 
-            return View();
-        }
         public ActionResult Search(string searchString)
         {
             var result = new List<Actor>();
@@ -198,6 +233,56 @@ namespace ActorLibrary.Controllers
                 //Log the error (uncomment dex variable name and add a line here to write a log.
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
+            return View(actor);
+        }
+
+        public ActionResult AddAudioFiles(int? id)
+        {
+            if (id == null)
+            {
+
+                return HttpNotFound();
+                //return View("Index");
+            }
+            var actor = _db.Actors.Find(id);
+            return View(actor);
+        }
+
+        [HttpPost]
+        public ActionResult AddAudioFiles(int? id, string title, HttpPostedFileBase audioFile)
+        {
+            var actor = _db.Actors.Find(id);
+            var vt = new VoiceTest();
+
+            if (string.IsNullOrEmpty(title))
+            {
+                title = "Ingen tittel";
+            }
+
+            if (audioFile.ContentType != "audio/mp3" || audioFile.ContentLength > 100000000)
+            {
+                ViewBag.Error = "<strong style='color:red;'>Feil filtype eller for stor fil</strong>";
+                return View(actor);
+            }
+
+            if (ModelState.IsValid)
+            {
+                string pathToSaveAudio = Server.MapPath("~/audio/");
+
+                if (audioFile != null & audioFile.ContentLength > 0)
+                {
+                    string filename = actor.Filename.Replace(" ", "_") + "_" + title.Replace(" ", "_") + "_" + DateTime.Now.ToShortDateString().Replace("/", "-") + ".mp3";
+                    string fullFilename = Path.Combine(pathToSaveAudio, filename);
+                    // Lagrer fila på disk
+                    audioFile.SaveAs(fullFilename);
+                    vt.VoiceTestTitle = actor.FullName + " - " + title;
+                    vt.VoiceTestUrl = "/audio/" + filename.ToString();
+                    actor.VoiceTests.Add(vt);
+                    _db.VoiceTests.Add(vt);
+
+                }
+            }
+            _db.SaveChanges();
             return View(actor);
         }
 

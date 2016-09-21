@@ -45,12 +45,27 @@ namespace ActorLibrary.Models
 
         [Display(Name = "Kommentar")]
         [MaxLength(1024)]
+        [DataType(DataType.MultilineText)]
         public string Comment { get; set; }
 
         [Display(Name = "Kjønn")]
         public string ActorGenderId { get; set; }
 
         public DateTime? AddedDate { get; set; }
+
+        [Display(Name = "Alder")]
+        public int Age
+        {
+            get
+            {
+                if (BirthDate != null)
+                {
+                    return DateTime.Today.Year - BirthDate.Year;
+                }
+
+                return 0;
+            }
+        }
 
         public virtual List<VoiceTest> VoiceTests { get; set; }
 

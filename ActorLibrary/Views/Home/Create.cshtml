@@ -1,117 +1,113 @@
 ﻿@model ActorLibrary.Models.EditCreateViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Legg til ny";
 }
 
-<h2>Create</h2>
+<h2>Legg til ny skuespiller</h2>
+
+<div class="row">
+
+    @using (Html.BeginForm("Create", "Actor", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Actor.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Actor.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder="Fornavn" } })
+                        @Html.ValidationMessageFor(model => model.Actor.FirstName, "", new { @class = "text-danger" })
+                    </div>
 
 
-@using (Html.BeginForm("Create", "Actor", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
+                    @Html.LabelFor(model => model.Actor.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.Actor.LastName, new { htmlAttributes = new { @class = "form-control", placeholder="Etternavn" } })
+                        @Html.ValidationMessageFor(model => model.Actor.LastName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+           
+            <div class="form-group">
+                @Html.LabelFor(model => model.Actor.BirthDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Actor.BirthDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Fødselsdato" } })
+                    @Html.ValidationMessageFor(model => model.Actor.BirthDate, "", new { @class = "text-danger" })
+                </div>
+            
 
-    <div class="form-horizontal">
-        <h4>Actor</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Actor.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Actor.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Actor.FirstName, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.Actor.Mail, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Actor.Mail, new { htmlAttributes = new { @class = "form-control", placeholder = "Mail" } })
+                    @Html.ValidationMessageFor(model => model.Actor.Mail, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Actor.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Actor.Phone, new { htmlAttributes = new { @class = "form-control", placeholder = "Telefon" } })
+                    @Html.ValidationMessageFor(model => model.Actor.Phone, "", new { @class = "text-danger" })
+                </div>
+            
+                @Html.LabelFor(model => model.Actor.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Actor.Address, new { htmlAttributes = new { @class = "form-control", placeholder = "Adresse" } })
+                    @Html.ValidationMessageFor(model => model.Actor.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Actor.ActorGenderId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.DropDownListFor(model => model.Actor.ActorGenderId, Model.GenderItems, "- Velg Kjønn -")
+
+                </div>
+            
+                @Html.Label("Velg bilde", new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    <input class="btn btn-default" type="file" id="ProfileImage" name="uploadImg" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Actor.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Actor.Comment, htmlAttributes: new { @class = "form-control", rows = "8" })
+                    @Html.ValidationMessageFor(model => model.Actor.Comment, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Velg lydfil", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input class="input-box" type="text" placeholder="Tittel ..." name="audioTitle" />
+                    <input class="btn btn-default" type="file" id="Audio" name="uploadAudio" />
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Legg til" class="btn btn-default" />
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Actor.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Actor.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Actor.LastName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Actor.BirthDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Actor.BirthDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Actor.BirthDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Actor.Mail, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Actor.Mail, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Actor.Mail, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Actor.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Actor.Phone, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Actor.Phone, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Actor.Address, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Actor.Address, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Actor.Address, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Actor.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Actor.Comment, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Actor.Comment, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Actor.ActorGenderId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Actor.ActorGenderId, Model.GenderItems, "Velg Kjønn")
-
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.Label("Velg bilde", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input class="btn btn-default" type="file" id="ProfileImage" name="uploadImg" />
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.Label("Velg lydfil", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input class="input-box" type="text" placeholder="Tittel ..." name="audioTitle" />
-                <input class="btn btn-default" type="file" id="Audio" name="uploadAudio" />
-            </div>
-        </div>
+    }
 
 
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
     </div>
-}
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/bundles/knockout")
 
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    }
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/knockout")
-   
-
-}
