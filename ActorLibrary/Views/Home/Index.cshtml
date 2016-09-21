@@ -4,13 +4,13 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
+<div class="">
     <h1>Skuespillerarkiv</h1>
 </div>
 
 <div class="row">
     <div class="col-md-12">
-        @Html.ActionLink("Ny skuespiller", "Create", "Actor", null, new { @class = "btn btn-default" })
+        @*@Html.ActionLink("Ny skuespiller", "Create", "Home", null, new { @class = "btn btn-default" })*@
     </div>
     <br />
     <div class="row">
@@ -34,11 +34,11 @@
                     <img class="img-responsive" src="@item.ImgUrl" alt="Profil" />
                 </div>
                 <div class="col-md-12">
-                    <h2>
-                        @Html.DisplayFor(modelItem => item.FullName)
+                    <h2>@Html.ActionLink(item.FullName, "Details", new { id = item.ActorId })
+                        @*@Html.DisplayFor(modelItem => item.FullName)*@
                     </h2>
                     <br />
-                    @Html.DisplayFor(modelItem => item.Address)
+                    
 
                     <ul class="list-group">
 

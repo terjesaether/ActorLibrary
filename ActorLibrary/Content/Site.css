@@ -50,3 +50,13 @@ textarea {
 .img-margin {
     padding: 3px;
 }
+
+.btn-menu {
+    display: block;
+    background: #fff;
+    padding: 2px;
+}
+.btn-menu:hover {
+    background: #808080;
+    
+}

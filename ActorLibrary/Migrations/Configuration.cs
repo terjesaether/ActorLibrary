@@ -29,6 +29,8 @@ namespace ActorLibrary.Migrations
                   LastName = "Nilsen",
                   Address = "Oslogate 2",
                   ImgUrl = "/img/profile_erik_skold.jpg",
+                  ActorGenderId = "2",
+                  BirthDate = DateTime.Parse("2013-06-16 00:00:00.000"),
                   VoiceTests = new List<VoiceTest>
                   {
                   new VoiceTest { VoiceTestTitle = "sang1", VoiceTestUrl = "/audio/siri_1.mp3"},
@@ -41,6 +43,8 @@ namespace ActorLibrary.Migrations
                   FirstName = "Erik",
                   LastName = "Skøld",
                   ImgUrl = "/img/profile_2.jpg",
+                  ActorGenderId = "1",
+                  BirthDate = DateTime.Parse("2013-06-16 00:00:00.000"),
                   VoiceTests = new List<VoiceTest>
                   {
                   new VoiceTest { VoiceTestTitle = "Prat 1", VoiceTestUrl = "/audio/siri_1.mp3"},
@@ -53,6 +57,8 @@ namespace ActorLibrary.Migrations
                   FirstName = "Anderz",
                   LastName = "Eide",
                   ImgUrl = "/img/profile_erik_skold.jpg",
+                  ActorGenderId = "1",
+                  BirthDate = DateTime.Parse("2013-06-16 00:00:00.000"),
                   VoiceTests = new List<VoiceTest>
                   {
                   new VoiceTest { VoiceTestTitle = "Donald 1", VoiceTestUrl = "/audio/siri_1.mp3"},

@@ -26,6 +26,7 @@
                     <li>@Html.ActionLink("Heim", "Index", "Home")</li>
 
                     <li>@Html.ActionLink("Skuespillerarkiv", "Index", "Actor")</li>
+                    <li>@Html.ActionLink("Ny skuespiller", "Create", "Home")</li>
                 </ul>
 
                 @using (Html.BeginForm("Search", "Home", null, FormMethod.Post, new { @class = "navbar-form navbar-right" }))

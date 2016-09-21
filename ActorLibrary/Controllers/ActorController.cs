@@ -35,13 +35,23 @@ namespace ActorLibrary.Controllers
         // GET: Actor/Create
         public ActionResult Create()
         {
-            var viewModel = new CreateViewModel();
+
+            var viewModel = new EditCreateViewModel();
+
+            var allGenders = _db.Genders.Select(f => new SelectListItem
+            {
+                Value = f.GenderId.ToString(),
+                Text = f.GenderName
+            });
+
+            viewModel.GenderItems = allGenders.ToList();
+
             return View(viewModel);
         }
 
         // POST: Actor/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "LastName, FirstName, Address, Phone, Mail, Comment")]Actor actor, string Gender, string audioTitle, HttpPostedFileBase uploadAudio, HttpPostedFileBase uploadImg)
+        public ActionResult Create([Bind(Include = "LastName, FirstName, Address, Phone, Mail, Comment, BirthDate")]Actor actor, string ActorGenderId, string audioTitle, HttpPostedFileBase uploadAudio, HttpPostedFileBase uploadImg)
         {
             try
             {
@@ -75,11 +85,11 @@ namespace ActorLibrary.Controllers
                         _db.VoiceTests.Add(vt);
                     }
 
-                    if (!string.IsNullOrEmpty(Gender))
-                    {
-                        var gender = _db.Genders.Find(Convert.ToInt32(Gender));
-                        actor.Gender = gender.GenderName.ToString();
-                    }
+                    //if (!string.IsNullOrEmpty(ActorGenderId))
+                    //{
+                    //    var gender = _db.Genders.Find(Convert.ToInt32(ActorGenderId));
+                    //    actor.ActorGenderId = gender.GenderName.ToString();
+                    //}
 
                     _db.Actors.Add(actor);
                     _db.SaveChanges();
@@ -99,7 +109,7 @@ namespace ActorLibrary.Controllers
         {
             if (id == null)
             {
-                id = 1;
+
                 return HttpNotFound();
                 //return View("Index");
             }
@@ -110,7 +120,7 @@ namespace ActorLibrary.Controllers
         [HttpPost]
         public ActionResult AddAudioFiles(int? id, string title, HttpPostedFileBase audioFile)
         {
-            Actor actor = _db.Actors.Find(id);
+            var actor = _db.Actors.Find(id);
             var vt = new VoiceTest();
 
             if (audioFile.ContentType != "audio/mpeg" || audioFile.ContentLength > 100000000)

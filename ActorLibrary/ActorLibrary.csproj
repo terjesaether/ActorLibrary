@@ -206,12 +206,52 @@
     <Compile Include="Migrations\201609192104242_AddedGenderString.Designer.cs">
       <DependentUpon>201609192104242_AddedGenderString.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609201718115_AddedBirthDate.cs" />
+    <Compile Include="Migrations\201609201718115_AddedBirthDate.Designer.cs">
+      <DependentUpon>201609201718115_AddedBirthDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609201720594_AddedBirthDate2.cs" />
+    <Compile Include="Migrations\201609201720594_AddedBirthDate2.Designer.cs">
+      <DependentUpon>201609201720594_AddedBirthDate2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609201727086_AddedBirthDateDataType.cs" />
+    <Compile Include="Migrations\201609201727086_AddedBirthDateDataType.Designer.cs">
+      <DependentUpon>201609201727086_AddedBirthDateDataType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609201734214_AddedBirthDateDataTypeDate.cs" />
+    <Compile Include="Migrations\201609201734214_AddedBirthDateDataTypeDate.Designer.cs">
+      <DependentUpon>201609201734214_AddedBirthDateDataTypeDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609211518520_AddedGenderClass1.cs" />
+    <Compile Include="Migrations\201609211518520_AddedGenderClass1.Designer.cs">
+      <DependentUpon>201609211518520_AddedGenderClass1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609211532115_AddedGenderClassFix.cs" />
+    <Compile Include="Migrations\201609211532115_AddedGenderClassFix.Designer.cs">
+      <DependentUpon>201609211532115_AddedGenderClassFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609211534570_AddedGenderClassRevertToString.cs" />
+    <Compile Include="Migrations\201609211534570_AddedGenderClassRevertToString.Designer.cs">
+      <DependentUpon>201609211534570_AddedGenderClassRevertToString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609211613233_AddedGenderClassGenderToGenderId.cs" />
+    <Compile Include="Migrations\201609211613233_AddedGenderClassGenderToGenderId.Designer.cs">
+      <DependentUpon>201609211613233_AddedGenderClassGenderToGenderId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609211729545_AddedAddedDate.cs" />
+    <Compile Include="Migrations\201609211729545_AddedAddedDate.Designer.cs">
+      <DependentUpon>201609211729545_AddedAddedDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609211743493_AddedAddedDateAddedConstr.cs" />
+    <Compile Include="Migrations\201609211743493_AddedAddedDateAddedConstr.Designer.cs">
+      <DependentUpon>201609211743493_AddedAddedDateAddedConstr.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Actor.cs" />
     <Compile Include="Models\ActorContext.cs" />
     <Compile Include="Models\ActorViewModel.cs" />
-    <Compile Include="Models\CreateViewModel.cs" />
+    <Compile Include="Models\EditCreateViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -337,6 +377,8 @@
     <Content Include="Views\Actor\AddAudioFiles.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Home\Edit.cshtml" />
+    <Content Include="Views\Home\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -373,6 +415,36 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609192104242_AddedGenderString.resx">
       <DependentUpon>201609192104242_AddedGenderString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609201718115_AddedBirthDate.resx">
+      <DependentUpon>201609201718115_AddedBirthDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609201720594_AddedBirthDate2.resx">
+      <DependentUpon>201609201720594_AddedBirthDate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609201727086_AddedBirthDateDataType.resx">
+      <DependentUpon>201609201727086_AddedBirthDateDataType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609201734214_AddedBirthDateDataTypeDate.resx">
+      <DependentUpon>201609201734214_AddedBirthDateDataTypeDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609211518520_AddedGenderClass1.resx">
+      <DependentUpon>201609211518520_AddedGenderClass1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609211532115_AddedGenderClassFix.resx">
+      <DependentUpon>201609211532115_AddedGenderClassFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609211534570_AddedGenderClassRevertToString.resx">
+      <DependentUpon>201609211534570_AddedGenderClassRevertToString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609211613233_AddedGenderClassGenderToGenderId.resx">
+      <DependentUpon>201609211613233_AddedGenderClassGenderToGenderId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609211729545_AddedAddedDate.resx">
+      <DependentUpon>201609211729545_AddedAddedDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609211743493_AddedAddedDateAddedConstr.resx">
+      <DependentUpon>201609211743493_AddedAddedDateAddedConstr.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

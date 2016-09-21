@@ -12,6 +12,7 @@ namespace ActorLibrary.Models
         public Actor()
         {
             VoiceTests = new List<VoiceTest>();
+            AddedDate = DateTime.Now;
         }
 
         [Key]
@@ -25,6 +26,12 @@ namespace ActorLibrary.Models
         [Required]
         public string LastName { get; set; }
 
+        [Display(Name = "Fødselsdato")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        public DateTime BirthDate { get; set; }
+
+        [Display(Name = "E-post")]
         public string Mail { get; set; }
 
         [Display(Name = "Telefon")]
@@ -41,7 +48,9 @@ namespace ActorLibrary.Models
         public string Comment { get; set; }
 
         [Display(Name = "Kjønn")]
-        public string Gender { get; set; }
+        public string ActorGenderId { get; set; }
+
+        public DateTime? AddedDate { get; set; }
 
         public virtual List<VoiceTest> VoiceTests { get; set; }
 
@@ -73,5 +82,7 @@ namespace ActorLibrary.Models
         public int GenderId { get; set; }
         public string GenderName { get; set; }
     }
+
+
 
 }
