@@ -4,10 +4,10 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details Home</h2>
-<h3>@Html.DisplayFor(model => model.Actor.FullName)</h3>
+
+<h2>@Html.DisplayFor(model => model.Actor.FullName)</h2>
 <div>
-    
+
     <hr />
     <div class="row">
         <div class="col-md-4">
@@ -33,7 +33,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Actor.BirthDate)
+                    @Html.DisplayFor(model => model.Actor.BirthDate) 
                 </dd>
 
                 <dt>
@@ -41,7 +41,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Actor.Age)
+                    @Html.DisplayFor(model => model.Actor.Age) år.
                 </dd>
 
                 <dt>
@@ -49,7 +49,8 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Actor.Mail)
+                    <a href="mailto:@Model.Actor.Mail">@Model.Actor.Mail</a>
+
                 </dd>
 
                 <dt>
@@ -68,7 +69,7 @@
                     @Html.DisplayFor(model => model.Actor.Address)
                 </dd>
 
-                
+
                 <dt>
                     Kjønn:
                 </dt>
@@ -86,25 +87,38 @@
         <div class="col-md-4">
             <img class="img-responsive" src="@Model.Actor.ImgUrl" alt="@Model.Actor.FullName" />
         </div>
-        
+
     </div>
     <div class="row">
-        @foreach (var file in Model.Actor.VoiceTests)
+        @if (Model.Actor.VoiceTests.Count > 0)
         {
-            <div class="col-md-4">
-                @file.VoiceTestTitle.ToString() -
-                <audio controls>
-                    <source src="@file.VoiceTestUrl" type="audio/mp3" />
-                </audio>
-            </div>
+            foreach (var file in Model.Actor.VoiceTests)
+            {
+                <div class="col-md-4 voicetest-box">
+                    <p><strong>@file.VoiceTestTitle.ToString()</strong></p>
+                    <audio controls>
+                        <source src="@file.VoiceTestUrl" type="audio/mp3" />
+                    </audio>
+                </div>
+            }
         }
+        else
+        {
+            <p>Det er ikke lagt til noen stemmeprøver.</p>
+            <p>Legg til noen @Html.ActionLink("her.", "AddAudioFiles", new { id = Model.Actor.ActorId }, new { @class = "btn btn-info" }) </p>
+        }
+
     </div>
 
 </div>
 <br />
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Actor.ActorId }) |
-    @Html.ActionLink("Tilbake", "Index")
+    @Html.ActionLink("Rediger", "Edit", new { id = Model.Actor.ActorId }, new { @class="btn btn-info"}) |
+    @Html.ActionLink("Tilbake", "Index", null, new { @class = "btn btn-default" }) |
+
+    <a class="btn btn-danger" href="javascript:AjaxDelete('@Url.Action("Delete", "Home", new { id = Model.Actor.ActorId})')">Slett</a>
+
+
 </p>
 
 @section Scripts {
@@ -118,5 +132,29 @@
                 enableKeyboard: true
             }
             );
+        
+
+        function AjaxDelete(urlAction) {
+            if (confirm("Er du sikker?")) {
+                $.ajax({
+                    type: "POST", // see http://haacked.com/archive/2009/06/24/json-hijacking.aspx
+                    url: urlAction,
+                    data: {}, //to send data see more at http://bit.ly/mvc_ajax_jquery
+                    datatype: "JSON",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (returndata) {
+                        if (returndata.ok)
+                            window.location = returndata.newurl;
+                        else
+                            window.alert(returndata.message);
+
+                    }
+                }
+                           );
+            }
+
+        }
+
+
     </script>
 }

@@ -10,20 +10,20 @@
 
 <div class="row">
     <div class="col-md-12">
-      
+
     </div>
     <br />
     @using (Html.BeginForm("Index", "Home"))
-                {
-                    @Html.DropDownList("sortBy", new SelectList(ViewBag.sortList, "Value", "Text"), "Sorter etter ...", new { @onchange = "this.form.submit();" })
-                }
+    {
+        @Html.DropDownList("sortBy", new SelectList(ViewBag.sortList, "Value", "Text"), "Sorter etter ...", new { @onchange = "this.form.submit();" })
+    }
 
     <br />
     <div class="row">
         @{int counter = 1;
             string alternateBgr = "";}
 
-        @foreach (var item in Model)
+        @foreach (var actor in Model)
         {
             if (counter % 2 == 0)
             {
@@ -36,41 +36,51 @@
 
             <div class="col-md-4 @alternateBgr actor-box">
                 <div class="profile-img">
-                    
-                    <img class="img-responsive" src="@item.ImgUrl" alt="Profil" />
+
+                    <img class="img-responsive" src="@actor.ImgUrl" alt="Profil" />
                 </div>
                 <div class="col-md-12">
-                    <h2>@Html.ActionLink(item.FullName, "Details", new { id = item.ActorId })
-                        
-                    </h2>
-                    <br />
-                    
+                    <h2>
+                        @Html.ActionLink(actor.FullName, "Details", new { id = actor.ActorId })
 
-                    <ul class="list-group">
+                </h2>
+                <br />
+                    @if (actor.VoiceTests.Count > 0)
+                    {
 
-                        @foreach (var vt in item.VoiceTests.Take(3))
-                {
+                <ul class="list-group">
 
-                            <li class="list-group-item">
-                                @Html.DisplayFor(vtItem => vt.VoiceTestTitle)
-                                <audio controls>
-                                    <source src="@vt.VoiceTestUrl" type="audio/mp3" />
-                                </audio>
+                    @foreach (var vt in actor.VoiceTests.Take(3))
+                    {
 
-                            </li>
+                        <li class="list-group-item">
+                            @Html.DisplayFor(vtItem => vt.VoiceTestTitle)
+                            <audio controls>
+                                <source src="@vt.VoiceTestUrl" type="audio/mp3" />
+                            </audio>
 
-                        }
-                        <li class="list-group-item">@Html.ActionLink("Se flere stemmeprøver ...", "Details", "Home", new { id = item.ActorId }, new { @class = "btn btn-default" })</li>
-                    </ul>
+                        </li>
 
-                    <p>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ActorId }, new { @class = "btn btn-default" })
-                        @Html.ActionLink("Detaljer", "Details", "Home", new { id = item.ActorId }, new { @class = "btn btn-default" })
-                        @Html.ActionLink("Legg til stemmeprøve", "AddAudioFiles", "Home", new { id = item.ActorId }, new { @class = "btn btn-default" })
+                    }
 
-                    </p>
-                </div>
+                    <li class="list-group-item">@Html.ActionLink("Se flere stemmeprøver ...", "Details", "Home", new { id = actor.ActorId }, new { @class = "btn btn-default" })</li>
+                </ul>
+                    }
+                    else
+                    {
+                        <p>Det er ikke lagt til noen stemmeprøver.</p>
+                        <p>Legg til noen @Html.ActionLink("her.", "AddAudioFiles", new { id = actor.ActorId }) </p>
+                    }
+                
+
+                <p>
+                    @Html.ActionLink("Rediger", "Edit", new { id = actor.ActorId }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Detaljer", "Details", "Home", new { id = actor.ActorId }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Legg til stemmeprøve", "AddAudioFiles", "Home", new { id = actor.ActorId }, new { @class = "btn btn-default" })
+
+                </p>
             </div>
+        </div>
 
             if (counter % 3 == 0)
             {
@@ -91,7 +101,7 @@
                     audioWidth: "100%",
                     startVolume: 0.8,
                     pauseOtherPlayers: true,
-                    
+
                     enableKeyboard: true
                 }
 

@@ -11,7 +11,7 @@
 </p>
 <div class="row">
     <div class="col-md-2 text-left"><h3>@Html.DisplayNameFor(model => model.FullName):</h3></div>
-    <div class="col-md-1 text-left"><h3>@Html.DisplayNameFor(model => model.Gender):</h3></div>
+    <div class="col-md-1 text-left"><h3>Kjønn:</h3></div>
     <div class="col-md-2 text-left"><h3>@Html.DisplayNameFor(model => model.Mail):</h3></div>
     <div class="col-md-1 text-left"><h3>@Html.DisplayNameFor(model => model.Phone):</h3></div>
 
@@ -20,13 +20,13 @@
     <div class="col-md-1"><h3></h3></div>
     </div>
 
-
+@{ var counter = 0;}
 
     @foreach (var item in Model)
     {
         <div class="row">
             <div class="col-md-2 text-left">@Html.DisplayFor(modelItem => item.FullName)</div>
-            <div class="col-md-1 text-left">@Html.DisplayFor(modelItem => item.Gender)</div>
+            <div class="col-md-1 text-left">@ViewBag.GenderNames[counter]</div>
             <div class="col-md-2 text-left">@Html.DisplayFor(modelItem => item.Mail)</div>
             <div class="col-md-1 text-left">@Html.DisplayFor(modelItem => item.Phone)</div>
 
@@ -36,12 +36,13 @@
             <div class="col-md-4">@Html.DisplayFor(modelItem => item.Comment)</div>
 
             <div class="col-md-1">
-                @Html.ActionLink(" ", "AddAudioFiles", "Actor", new { id = item.ActorId }, new { @class = "glyphicon glyphicon-pencil" })
+                @Html.ActionLink(" ", "AddAudioFiles", "Home", new { id = item.ActorId }, new { @class = "glyphicon glyphicon-pencil" })
                 @Html.ActionLink(" ","Details", new { id = item.ActorId }, new { @class = "glyphicon glyphicon-user" })
                 @Html.ActionLink(" ", "Delete", new { id = item.ActorId }, new { @class = "glyphicon glyphicon-remove" })
                 
             </div>
         </div>
+        counter++;
     }
 
 

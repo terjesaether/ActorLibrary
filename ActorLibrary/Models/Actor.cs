@@ -62,7 +62,6 @@ namespace ActorLibrary.Models
                 {
                     return DateTime.Today.Year - BirthDate.Year;
                 }
-
                 return 0;
             }
         }

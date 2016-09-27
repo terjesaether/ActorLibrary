@@ -12,7 +12,6 @@ namespace ActorLibrary.Models
     public class EditCreateViewModel
     {
 
-
         private ActorContext _db = new ActorContext();
 
         public IEnumerable<SelectListItem> GenderItems { get; set; }

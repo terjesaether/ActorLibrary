@@ -45,6 +45,7 @@ textarea {
 
 .actor-box:hover {
     background: #e8e8e8;
+    cursor: pointer;
 }
 
 .img-margin {
@@ -59,10 +60,11 @@ textarea {
 .btn-menu:hover {
     background: #808080;
     
+    
 }
 
 .voicetest-box {
-    height: 100px;
+    height: 90px;
     padding: 10px;
     
 }

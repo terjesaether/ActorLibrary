@@ -1,6 +1,7 @@
 ﻿using ActorLibrary.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
@@ -61,15 +62,14 @@ namespace ActorLibrary.Controllers
         public ActionResult Details(int? id)
         {
             var actor = _db.Actors.Find(id.Value);
-            var actorGenderId = actor.ActorGenderId;
-            var gender = _db.Genders.Find(Convert.ToInt32(actorGenderId));
+            var allGenders = _db.Genders.ToList();
 
             var viewModel = new ActorViewModel
             {
-                Actor = actor,
-                Gender = gender
+                Actor = actor
             };
 
+            var gender = allGenders.First(g => g.GenderId == Convert.ToInt32(actor.ActorGenderId));
             ViewBag.GenderName = gender.GenderName;
             return View(viewModel);
         }
@@ -78,6 +78,9 @@ namespace ActorLibrary.Controllers
         public ActionResult Search(string searchString)
         {
             var result = new List<Actor>();
+            var genderNames = new List<string>();
+            var allGenders = _db.Genders.ToList();
+
 
             var actors = from a in _db.Actors
                          select a;
@@ -94,6 +97,22 @@ namespace ActorLibrary.Controllers
             {
                 ViewBag.SearchMessage = "Ingen resultater";
             }
+
+            foreach (var actor in result)
+            {
+                if (!string.IsNullOrEmpty(actor.ActorGenderId))
+                {
+                    var gender = allGenders.First(g => g.GenderId == Convert.ToInt32(actor.ActorGenderId));
+                    genderNames.Add(gender.GenderName);
+                }
+                else
+                {
+                    genderNames.Add("N.A.");
+                }
+
+            }
+
+            ViewBag.GenderNames = genderNames;
             return View(result);
         }
 
@@ -113,7 +132,6 @@ namespace ActorLibrary.Controllers
             var viewModel = new EditCreateViewModel();
             viewModel.Actor = actor;
 
-            //var selectList = viewModel.SetSelectedValue(viewModel.GenderItems, viewModel.Actor.Gender)
             var allGenders = _db.Genders.Select(f => new SelectListItem
             {
                 Value = f.GenderId.ToString(),
@@ -216,12 +234,13 @@ namespace ActorLibrary.Controllers
                         _db.VoiceTests.Add(vt);
                     }
 
-                    //if (!string.IsNullOrEmpty(ActorGenderId))
-                    //{
-                    //    var gender = _db.Genders.Find(Convert.ToInt32(ActorGenderId));
-                    //    actor.ActorGenderId = gender.GenderName.ToString();
-                    //}
+                    if (string.IsNullOrEmpty(ActorGenderId))
+                    {
+                        //var findGender = _db.Genders.Find(Convert.ToInt32(ActorGenderId));
+                        actor.ActorGenderId = "3";
+                    }
 
+                    actor.ActorGenderId = ActorGenderId;
 
                     _db.Actors.Add(actor);
                     _db.SaveChanges();
@@ -286,12 +305,59 @@ namespace ActorLibrary.Controllers
             return View(actor);
         }
 
+
+        [HttpPost]
+        public ActionResult Delete(int? id, bool? saveChangesError = false)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewBag.ErrorMessage = "Delete failed. Try again, and if the problem persists see your system administrator.";
+            }
+
+            try
+            {
+                var actor = _db.Actors.Find(id.Value);
+                _db.Actors.Remove(actor);
+                _db.SaveChanges();
+                return Json(new { ok = true, newurl = Url.Action("Index") });
+            }
+            catch (Exception ex)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                //return RedirectToAction("Delete", new { id = id, saveChangesError = true });
+                return Json(new { ok = false, message = ex.Message });
+            }
+
+
+        }
+
+        //[HttpPost]
+        //[ActionName("Delete")]
+        //public ActionResult DeleteConfirmed(int? id)
+        //{
+        //    return View();
+        //}
+
         private void PopulateGenderDownList(object selectedGender = null)
         {
             var genderQuery = from g in _db.Genders
                               orderby g.GenderName
                               select g;
             ViewBag.GenderId = new SelectList(genderQuery, "GenderId", "GenderName", selectedGender);
+        }
+
+        private string GetGenderNames(int? id, Actor actor, List<Gender> genders)
+        {
+
+            var gender = genders.FirstOrDefault(g => g.GenderId == Convert.ToInt32(actor.ActorGenderId));
+
+            return gender.GenderName;
+
         }
     }
 }
