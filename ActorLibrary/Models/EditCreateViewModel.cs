@@ -11,26 +11,56 @@ namespace ActorLibrary.Models
 
     public class EditCreateViewModel
     {
-
+        CommonOperations comOp = new CommonOperations();
+        public EditCreateViewModel()
+        {
+            GenderList = comOp.GetGenderList();
+            DialectList = comOp.GetDialectsList();
+            Dialects = new List<DialectName>();
+        }
         private ActorContext _db = new ActorContext();
 
-        public IEnumerable<SelectListItem> GenderItems { get; set; }
+        public List<SelectListItem> GenderList { get; set; }
+        public List<SelectListItem> DialectList { get; set; }
 
-        public IEnumerable<SelectListItem> GetGenderItems(string value)
-        {
-            if (value != null)
-            {
-                var allGenders = _db.Genders.Select(f => new SelectListItem
-                {
-                    Value = f.GenderId.ToString(),
-                    Text = f.GenderName,
-                    Selected = f.GenderName == value
-                });
+        public List<DialectName> Dialects;
 
-                return allGenders;
-            }
-            return null;
-        }
+        //public IEnumerable<SelectListItem> GetGenderItems(string value)
+        //{
+        //    if (value != null)
+        //    {
+        //        var allGenders = _db.Genders.Select(f => new SelectListItem
+        //        {
+        //            Value = f.GenderId.ToString(),
+        //            Text = f.GenderName,
+        //            Selected = f.GenderName == value
+        //        });
+
+        //        return allGenders;
+        //    }
+        //    return null;
+        //}
+
+        //public List<SelectListItem> GetGenderList()
+        //{
+        //    var all = _db.Genders.Select(f => new SelectListItem
+        //    {
+        //        Value = f.GenderId.ToString(),
+        //        Text = f.GenderName
+        //    });
+        //    return all.ToList();
+        //}
+        //public List<SelectListItem> GetDialectList()
+        //{
+        //    var all = _db.DialectNames.Select(f => new SelectListItem
+        //    {
+        //        Value = f.DialectListId.ToString(),
+        //        Text = f.DialectListName
+        //    });
+        //    return all.ToList();
+        //}
+
+
 
 
 

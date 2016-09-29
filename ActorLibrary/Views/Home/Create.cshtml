@@ -13,31 +13,31 @@
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Actor.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-4">
-                        @Html.EditorFor(model => model.Actor.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder="Fornavn" } })
-                        @Html.ValidationMessageFor(model => model.Actor.FirstName, "", new { @class = "text-danger" })
-                    </div>
 
-
-                    @Html.LabelFor(model => model.Actor.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-4">
-                        @Html.EditorFor(model => model.Actor.LastName, new { htmlAttributes = new { @class = "form-control", placeholder="Etternavn" } })
-                        @Html.ValidationMessageFor(model => model.Actor.LastName, "", new { @class = "text-danger" })
-                    </div>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Actor.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Actor.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "Fornavn" } })
+                    @Html.ValidationMessageFor(model => model.Actor.FirstName, "", new { @class = "text-danger" })
                 </div>
-           
+
+
+                @Html.LabelFor(model => model.Actor.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Actor.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Etternavn" } })
+                    @Html.ValidationMessageFor(model => model.Actor.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
             <div class="form-group">
                 @Html.LabelFor(model => model.Actor.BirthDate, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-4">
                     @Html.EditorFor(model => model.Actor.BirthDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Fødselsdato" } })
                     @Html.ValidationMessageFor(model => model.Actor.BirthDate, "", new { @class = "text-danger" })
                 </div>
-            
+
 
                 @Html.LabelFor(model => model.Actor.Mail, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-4">
@@ -52,7 +52,7 @@
                     @Html.EditorFor(model => model.Actor.Phone, new { htmlAttributes = new { @class = "form-control", placeholder = "Telefon" } })
                     @Html.ValidationMessageFor(model => model.Actor.Phone, "", new { @class = "text-danger" })
                 </div>
-            
+
                 @Html.LabelFor(model => model.Actor.Address, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-4">
                     @Html.EditorFor(model => model.Actor.Address, new { htmlAttributes = new { @class = "form-control", placeholder = "Adresse" } })
@@ -63,10 +63,10 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Actor.ActorGenderId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-4">
-                    @Html.DropDownList("ActorGenderId", Model.GenderItems, "- Velg Kjønn -")
+                    @Html.DropDownList("ActorGenderId", Model.GenderList, "- Velg Kjønn -")
 
                 </div>
-            
+
                 @Html.Label("Velg bilde", new { @class = "control-label col-md-2" })
                 <div class="col-md-4">
                     <input class="btn btn-default" type="file" id="ProfileImage" name="uploadImg" />
@@ -75,10 +75,21 @@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Actor.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-4">
                     @Html.TextAreaFor(model => model.Actor.Comment, htmlAttributes: new { @class = "form-control", rows = "8" })
                     @Html.ValidationMessageFor(model => model.Actor.Comment, "", new { @class = "text-danger" })
                 </div>
+            
+
+            
+                @Html.Label("Velg dialekt", new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.DropDownList("DialectListId", Model.DialectList, "Velg dialekt ...", new { @onchange = "AddDialect();" })
+                </div>
+                <div class="col-md-4" id="addedDialects">
+                    
+                </div>
+                <div id="numOfDialects"></div>
             </div>
 
             <div class="form-group">
@@ -89,16 +100,33 @@
                 </div>
             </div>
 
-
-
+            
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Legg til" class="btn btn-default" />
                 </div>
             </div>
+            
         </div>
     }
+</div>
+<div class="row">
+    
 
+    @*@foreach (var dialect in Model.Actor.Dialects)
+    {
+        <p>@dialect.DialectName</p>
+    }*@
+
+    @using (Html.BeginForm("AddDialects", "Home", FormMethod.Post, null))
+    {
+        @Html.Hidden("actorDialectList", (object)ViewBag.actorDialectList,ToString())
+        
+        @*@Html.DropDownList("chooseDialect", new SelectList(ViewBag.dialectsList, "Value", "Text"), "Velg dialekt ...", new { @onchange = "this.form.submit();" })*@
+        @*@Html.DropDownList("DialectListId", Model.DialectList, "Velg dialekt ...", new { @onchange = "AddDialect();" })*@
+        
+    }
+</div>
 
     <div>
         @Html.ActionLink("Back to List", "Index")
@@ -107,7 +135,34 @@
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
         @Scripts.Render("~/bundles/knockout")
+<script>
+    var list = new Array();
+   
+    var selectDialect = $('#DialectListId');
+    var addedDialects = $('#addedDialects');
+    var numOfDialectsDiv = $('#numOfDialects');
+    var numOfDialects = 0;
+    
+    function AddDialect() {
+        
+        //var i = 0;
+        //do {
+            var selectedText = $("#DialectListId option:selected").text();
 
+            if (list.indexOf(selectedText) < 0) {
+                list.push(selectedText);
+                numOfDialects++;
+                addedDialects.append('<div>' + selectedText + '</div>');
+                addedDialects.append('<input type="hidden" name=' + 'selectedDialect' + selectDialect.val() + ' value=' + selectDialect.val() + ' />');
+                numOfDialectsDiv.html('<input type="hidden" name="numOfDialects" value=' + numOfDialects + ' />')
+            }
+            //i++;
+        //} while (i < list.length - 1);
+        
+        //alert(list.toString());
+    }
+
+    
+        </script>
 
     }
-</div>

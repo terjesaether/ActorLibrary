@@ -12,6 +12,7 @@ namespace ActorLibrary.Models
         public Actor()
         {
             VoiceTests = new List<VoiceTest>();
+            Dialects = new List<Dialect>();
             AddedDate = DateTime.Now;
         }
 
@@ -53,18 +54,8 @@ namespace ActorLibrary.Models
 
         public DateTime? AddedDate { get; set; }
 
-        [Display(Name = "Alder")]
-        public int Age
-        {
-            get
-            {
-                if (BirthDate != null)
-                {
-                    return DateTime.Today.Year - BirthDate.Year;
-                }
-                return 0;
-            }
-        }
+        [Display(Name = "Dialekt")]
+        public virtual List<Dialect> Dialects { get; set; }
 
         public virtual List<VoiceTest> VoiceTests { get; set; }
 
@@ -77,6 +68,19 @@ namespace ActorLibrary.Models
         public string Filename
         {
             get { return "_" + FirstName.ToLower() + "_" + LastName.ToLower(); }
+        }
+
+        [Display(Name = "Alder")]
+        public int Age
+        {
+            get
+            {
+                if (BirthDate != null)
+                {
+                    return DateTime.Today.Year - BirthDate.Year;
+                }
+                return 0;
+            }
         }
 
 
@@ -96,6 +100,32 @@ namespace ActorLibrary.Models
         public int GenderId { get; set; }
         public string GenderName { get; set; }
     }
+
+    public class AgeRanges
+    {
+        [Key]
+        public int AgeRangeId { get; set; }
+        public string AgeRange { get; set; }
+
+    }
+
+    public class DialectName
+    {
+        [Key]
+        public int DialectListId { get; set; }
+        public string DialectListName { get; set; }
+
+    }
+
+    public class Dialect
+    {
+        [Key]
+        public int DialectId { get; set; }
+        public virtual DialectName TheDialectName { get; set; }
+
+    }
+
+
 
 
 

@@ -9,15 +9,35 @@
 </div>
 
 <div class="row">
-    <div class="col-md-12">
 
-    </div>
     <br />
     @using (Html.BeginForm("Index", "Home"))
-    {
-        @Html.DropDownList("sortBy", new SelectList(ViewBag.sortList, "Value", "Text"), "Sorter etter ...", new { @onchange = "this.form.submit();" })
-    }
+            {
+        <div class="col-md-2">
 
+            @Html.DropDownList("sortBy", new SelectList(ViewBag.sortList, "Value", "Text"), "Sorter etter ...", new { @onchange = "this.form.submit();" })
+
+        </div>
+
+        <div class="col-md-2">
+
+            @Html.DropDownList("fromAge", new SelectList(ViewBag.ageRangeList, "Value", "Text"), "Fra alder ...", new { @onchange = "this.form.submit();" })
+
+        </div>
+
+        <div class="col-md-2">
+
+            @Html.DropDownList("toAge", new SelectList(ViewBag.ageRangeList, "Value", "Text"), "Til alder ...", new { @onchange = "this.form.submit();" })
+
+        </div>
+
+        <div class="col-md-2">
+
+            @Html.DropDownList("dialect", new SelectList(ViewBag.dialectsList, "Value", "Text"), "Dialekt ...", new { @onchange = "this.form.submit();" })
+
+        </div>
+    }
+</div>
     <br />
     <div class="row">
         @{int counter = 1;
@@ -25,14 +45,14 @@
 
         @foreach (var actor in Model)
         {
-            if (counter % 2 == 0)
-            {
-                alternateBgr = "alternate";
-            }
-            else
-            {
-                alternateBgr = "";
-            }
+            //if (counter % 2 == 0)
+            //{
+            //    alternateBgr = "alternate";
+            //}
+            //else
+            //{
+            //    alternateBgr = "";
+            //}
 
             <div class="col-md-4 @alternateBgr actor-box">
                 <div class="profile-img">
@@ -108,4 +128,3 @@
                 );
         </script>
     }
-</div>

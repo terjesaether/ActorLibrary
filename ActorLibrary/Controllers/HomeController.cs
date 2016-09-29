@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace ActorLibrary.Controllers
 {
@@ -15,17 +16,15 @@ namespace ActorLibrary.Controllers
     {
         private ActorContext _db = new ActorContext();
 
-        private List<SelectListItem> sortByList = new List<SelectListItem>
-        {
-                new SelectListItem { Value = "FirstName", Text = "Fornavn"},
-                new SelectListItem { Value = "LastName", Text = "Etternavn"},
-                new SelectListItem { Value = "AddedDate", Text = "Lagt til dato"},
-                new SelectListItem { Value = "Age", Text = "Alder"}
-        };
+        Models.CommonOperations comOp = new Models.CommonOperations();
+
+
 
         public ActionResult Index()
         {
-            ViewBag.sortList = sortByList;
+            ViewBag.sortList = comOp.GetSortedbyList();
+            ViewBag.ageRangeList = comOp.GetAgeRangesList();
+            ViewBag.dialectsList = comOp.GetDialectsList();
 
             return View(_db.Actors.
                 ToList());
@@ -46,7 +45,7 @@ namespace ActorLibrary.Controllers
             else if (sortBy == "Age")
                 orderByFunc = item => item.Age;
 
-            ViewBag.sortList = sortByList;
+            ViewBag.sortList = comOp.GetSortedbyList();
 
             return View(_db.Actors.
                 OrderByDescending(orderByFunc).
@@ -140,7 +139,7 @@ namespace ActorLibrary.Controllers
             });
 
 
-            viewModel.GenderItems = allGenders.ToList();
+            viewModel.GenderList = allGenders.ToList();
 
             return View(viewModel);
         }
@@ -186,20 +185,24 @@ namespace ActorLibrary.Controllers
 
             var viewModel = new EditCreateViewModel();
 
-            var allGenders = _db.Genders.Select(f => new SelectListItem
-            {
-                Value = f.GenderId.ToString(),
-                Text = f.GenderName
-            });
+            //ViewBag.dialectsList = comOp.GetDialectsList();
 
-            viewModel.GenderItems = allGenders.ToList();
+            //var allGenders = _db.Genders.Select(f => new SelectListItem
+            //{
+            //    Value = f.GenderId.ToString(),
+            //    Text = f.GenderName
+            //});
+
+            //viewModel.GenderItems = allGenders.ToList();
+
 
             return View(viewModel);
         }
 
         // POST: Actor/Create
-        [HttpPost]
-        public ActionResult Create([Bind(Include = "LastName, FirstName, Address, Phone, Mail, Comment, BirthDate")]Actor actor, string ActorGenderId, string audioTitle, HttpPostedFileBase uploadAudio, HttpPostedFileBase uploadImg)
+        //[HttpPost]
+        //[ActionName("Create")]
+        public ActionResult CreateActor([Bind(Include = "LastName, FirstName, Address, Phone, Mail, Comment, BirthDate")]Actor actor, string ActorGenderId, string audioTitle, HttpPostedFileBase uploadAudio, HttpPostedFileBase uploadImg)
         {
 
             try
@@ -253,6 +256,35 @@ namespace ActorLibrary.Controllers
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
             return View(actor);
+        }
+
+        // POST: Actor/Create
+        [HttpPost]
+        [ActionName("Create")]
+        public ActionResult CreateActorFormColl(FormCollection fc)
+        {
+            var numOfDialects = fc["numOfDialects"].ToString();
+            var FirstName = fc["Actor.FirstName"].ToString();
+            var LastName = fc["Actor.LastName"].ToString();
+            var Address = fc["Actor.Address"].ToString();
+            return View();
+        }
+
+
+        // FJERNES!
+        [HttpPost]
+        public ActionResult AddDialects(string actorDialectList, string DialectListId)
+        {
+            //char[] charSeparators = new char[] { ',' };
+            //var oldList = dialectList.Split(charSeparators, StringSplitOptions.RemoveEmptyEntries).ToList();
+            //oldList.Add(DialectListId);
+            //string json = new JavaScriptSerializer().Serialize(oldList);
+            ViewBag.actorDialectList = actorDialectList + "," + DialectListId;
+
+            //vm.Dialects.Add(DialectListId);
+
+
+            return RedirectToAction("CreateActor");
         }
 
         public ActionResult AddAudioFiles(int? id)
@@ -336,12 +368,7 @@ namespace ActorLibrary.Controllers
 
         }
 
-        //[HttpPost]
-        //[ActionName("Delete")]
-        //public ActionResult DeleteConfirmed(int? id)
-        //{
-        //    return View();
-        //}
+
 
         private void PopulateGenderDownList(object selectedGender = null)
         {

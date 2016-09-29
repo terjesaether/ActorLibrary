@@ -44,7 +44,7 @@ namespace ActorLibrary.Controllers
                 Text = f.GenderName
             });
 
-            viewModel.GenderItems = allGenders.ToList();
+            viewModel.GenderList = allGenders.ToList();
 
             return View(viewModel);
         }

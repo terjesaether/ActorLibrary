@@ -250,11 +250,40 @@
     <Compile Include="Migrations\201609211841199_AddedAgeField.Designer.cs">
       <DependentUpon>201609211841199_AddedAgeField.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609281551164_AddedAgeRanges.cs" />
+    <Compile Include="Migrations\201609281551164_AddedAgeRanges.Designer.cs">
+      <DependentUpon>201609281551164_AddedAgeRanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609281607210_AddedAgeRangesAgein.cs" />
+    <Compile Include="Migrations\201609281607210_AddedAgeRangesAgein.Designer.cs">
+      <DependentUpon>201609281607210_AddedAgeRangesAgein.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609281639338_AddedDialect.cs" />
+    <Compile Include="Migrations\201609281639338_AddedDialect.Designer.cs">
+      <DependentUpon>201609281639338_AddedDialect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609281719184_ChangedDialect.cs" />
+    <Compile Include="Migrations\201609281719184_ChangedDialect.Designer.cs">
+      <DependentUpon>201609281719184_ChangedDialect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609281731336_AddedDialectToActor.cs" />
+    <Compile Include="Migrations\201609281731336_AddedDialectToActor.Designer.cs">
+      <DependentUpon>201609281731336_AddedDialectToActor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609281915452_AddedDialectListAndDialects.cs" />
+    <Compile Include="Migrations\201609281915452_AddedDialectListAndDialects.Designer.cs">
+      <DependentUpon>201609281915452_AddedDialectListAndDialects.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609282006057_FixedDialects.cs" />
+    <Compile Include="Migrations\201609282006057_FixedDialects.Designer.cs">
+      <DependentUpon>201609282006057_FixedDialects.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Actor.cs" />
     <Compile Include="Models\ActorContext.cs" />
     <Compile Include="Models\ActorViewModel.cs" />
+    <Compile Include="Models\CommonOperations.cs" />
     <Compile Include="Models\EditCreateViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -455,6 +484,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609211841199_AddedAgeField.resx">
       <DependentUpon>201609211841199_AddedAgeField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609281551164_AddedAgeRanges.resx">
+      <DependentUpon>201609281551164_AddedAgeRanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609281607210_AddedAgeRangesAgein.resx">
+      <DependentUpon>201609281607210_AddedAgeRangesAgein.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609281639338_AddedDialect.resx">
+      <DependentUpon>201609281639338_AddedDialect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609281719184_ChangedDialect.resx">
+      <DependentUpon>201609281719184_ChangedDialect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609281731336_AddedDialectToActor.resx">
+      <DependentUpon>201609281731336_AddedDialectToActor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609281915452_AddedDialectListAndDialects.resx">
+      <DependentUpon>201609281915452_AddedDialectListAndDialects.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609282006057_FixedDialects.resx">
+      <DependentUpon>201609282006057_FixedDialects.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -66,6 +66,26 @@ namespace ActorLibrary.Migrations
                   }
               }
             );
+            context.AgeRanges.AddOrUpdate(
+                a => a.AgeRange,
+                new AgeRanges
+                {
+                    AgeRange = "6-10",
+                },
+                new AgeRanges
+                {
+                    AgeRange = "1-14",
+                },
+                new AgeRanges
+                {
+                    AgeRange = "15-18",
+                },
+                new AgeRanges
+                {
+                    AgeRange = "19-25",
+                }
+                );
+
 
         }
     }
