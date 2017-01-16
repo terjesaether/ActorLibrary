@@ -28,8 +28,8 @@ namespace ActorLibrary.Models
         public string LastName { get; set; }
 
         [Display(Name = "Fødselsdato")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime BirthDate { get; set; }
 
         [Display(Name = "E-post")]
@@ -52,6 +52,8 @@ namespace ActorLibrary.Models
         [Display(Name = "Kjønn")]
         public string ActorGenderId { get; set; }
 
+        //public virtual Gender Gender { get; set; }
+
         public DateTime? AddedDate { get; set; }
 
         [Display(Name = "Dialekt")]
@@ -63,6 +65,16 @@ namespace ActorLibrary.Models
         public string FullName
         {
             get { return FirstName + " " + LastName; }
+        }
+
+        public string fullName()
+        {
+            return FirstName + " " + LastName;
+        }
+
+        public string fileName()
+        {
+            return "_" + FirstName.ToLower() + "_" + LastName.ToLower();
         }
 
         public string Filename
@@ -83,6 +95,25 @@ namespace ActorLibrary.Models
             }
         }
 
+        //public List<string> GetDialectIds
+        //{
+        //    get
+        //    {
+        //        if (this.Dialects.Count > 0)
+        //        {
+        //            var dialetIdList = new List<string>();
+        //            foreach (var d in Dialects)
+        //            {
+        //                dialetIdList.Add(d.TheDialectName.DialectListId.ToString());
+        //            }
+        //            return dialetIdList;
+        //        }
+        //        return null;
+
+        //    }
+        //}
+
+
 
     }
 
@@ -91,6 +122,7 @@ namespace ActorLibrary.Models
         [Key]
         public int VoiceTestId { get; set; }
         public string VoiceTestTitle { get; set; }
+        public string Comment { get; set; }
         public string VoiceTestUrl { get; set; }
     }
 
@@ -105,23 +137,29 @@ namespace ActorLibrary.Models
     {
         [Key]
         public int AgeRangeId { get; set; }
-        public string AgeRange { get; set; }
+        public int FromAge { get; set; }
+        public int ToAge { get; set; }
+        public string AgeRange { get { return FromAge.ToString() + " - " + ToAge.ToString(); } }
+
 
     }
-
+    // Listen over dialektnavnene (Trønder, Nordlending osv):
     public class DialectName
     {
         [Key]
         public int DialectListId { get; set; }
+        [Display(Name = "Dialektnavn:")]
         public string DialectListName { get; set; }
 
     }
 
+    // En Dialekt til Actor
     public class Dialect
     {
         [Key]
         public int DialectId { get; set; }
         public virtual DialectName TheDialectName { get; set; }
+        //public int DialectListId { get; set; }
 
     }
 

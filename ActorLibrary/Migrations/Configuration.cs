@@ -14,7 +14,7 @@ namespace ActorLibrary.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(ActorLibrary.Models.ActorContext context)
+        protected override void Seed(ActorContext context)
         {
             //  This method will be called after migrating to the latest version.
 
@@ -28,9 +28,9 @@ namespace ActorLibrary.Migrations
                   FirstName = "Andrew",
                   LastName = "Nilsen",
                   Address = "Oslogate 2",
-                  ImgUrl = "/img/profile_erik_skold.jpg",
+                  ImgUrl = "/Images/profiles/profile_andrew_nilsen.jpg",
                   ActorGenderId = "2",
-                  BirthDate = DateTime.Parse("2013-06-16 00:00:00.000"),
+                  BirthDate = DateTime.Parse("1955-06-16 00:00:00.000"),
                   VoiceTests = new List<VoiceTest>
                   {
                   new VoiceTest { VoiceTestTitle = "sang1", VoiceTestUrl = "/audio/siri_1.mp3"},
@@ -42,23 +42,24 @@ namespace ActorLibrary.Migrations
               {
                   FirstName = "Erik",
                   LastName = "Skøld",
-                  ImgUrl = "/img/profile_2.jpg",
-                  ActorGenderId = "1",
-                  BirthDate = DateTime.Parse("2013-06-16 00:00:00.000"),
+                  ImgUrl = "/Images/profiles/profile_2.jpg",
+                  ActorGenderId = "2",
+                  BirthDate = DateTime.Parse("1988-06-16 00:00:00.000"),
                   VoiceTests = new List<VoiceTest>
                   {
                   new VoiceTest { VoiceTestTitle = "Prat 1", VoiceTestUrl = "/audio/siri_1.mp3"},
                   new VoiceTest { VoiceTestTitle = "Jalling 2", VoiceTestUrl = "/audio/siri_2.mp3" }
                   }
+
               },
 
               new Actor
               {
                   FirstName = "Anderz",
                   LastName = "Eide",
-                  ImgUrl = "/img/profile_erik_skold.jpg",
-                  ActorGenderId = "1",
-                  BirthDate = DateTime.Parse("2013-06-16 00:00:00.000"),
+                  ImgUrl = "/Images/profiles/profile_erik_skold.jpg",
+                  ActorGenderId = "2",
+                  BirthDate = DateTime.Parse("2000-06-16 00:00:00.000"),
                   VoiceTests = new List<VoiceTest>
                   {
                   new VoiceTest { VoiceTestTitle = "Donald 1", VoiceTestUrl = "/audio/siri_1.mp3"},
@@ -66,25 +67,80 @@ namespace ActorLibrary.Migrations
                   }
               }
             );
-            context.AgeRanges.AddOrUpdate(
-                a => a.AgeRange,
-                new AgeRanges
+
+            context.Genders.AddOrUpdate(
+                g => g.GenderId,
+                new Gender
                 {
-                    AgeRange = "6-10",
+                    GenderName = "Both"
                 },
-                new AgeRanges
+                new Gender
                 {
-                    AgeRange = "1-14",
+                    GenderName = "Mannlig"
                 },
-                new AgeRanges
+                new Gender
                 {
-                    AgeRange = "15-18",
-                },
-                new AgeRanges
-                {
-                    AgeRange = "19-25",
+                    GenderName = "Female"
                 }
                 );
+
+            context.DialectNames.AddOrUpdate(
+                d => d.DialectListId,
+                new DialectName
+                {
+                    DialectListName = "Østlending"
+                },
+                new DialectName
+                {
+                    DialectListName = "Vestlending"
+                },
+                new DialectName
+                {
+                    DialectListName = "Nordlending"
+                },
+                new DialectName
+                {
+                    DialectListName = "Sørlending"
+                }
+                );
+            //context.AgeRanges.AddOrUpdate(
+            //    a => a.AgeRange,
+            //    new AgeRanges
+            //    {
+            //        FromAge = 6,
+            //        ToAge = 10
+            //    },
+            //    new AgeRanges
+            //    {
+            //        FromAge = 11,
+            //        ToAge = 14
+            //    },
+            //    new AgeRanges
+            //    {
+            //        FromAge = 15,
+            //        ToAge = 18
+            //    },
+            //    new AgeRanges
+            //    {
+            //        FromAge = 19,
+            //        ToAge = 25
+            //    },
+            //    new AgeRanges
+            //    {
+            //        FromAge = 26,
+            //        ToAge = 50
+            //    },
+            //    new AgeRanges
+            //    {
+            //        FromAge = 51,
+            //        ToAge = 60
+            //    },
+            //    new AgeRanges
+            //    {
+            //        FromAge = 61,
+            //        ToAge = 100
+            //    }
+            //    );
 
 
         }

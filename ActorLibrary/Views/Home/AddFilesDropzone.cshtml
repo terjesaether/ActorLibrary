@@ -1,0 +1,101 @@
+﻿@model ActorLibrary.Models.Actor
+
+@{
+    ViewBag.Title = "Add Some Audio Files";
+}
+
+<h2>Legg til filer for @Model.FullName</h2>
+
+<div class="row">
+
+    @{int counter = 1;}
+
+    @foreach (var file in Model.VoiceTests)
+    {
+        <div class="col-md-4 voicetest-box">
+            <p>@file.VoiceTestTitle.ToString()</p>
+            <div class="audio-container">
+                <audio controls>
+                    <source src="@file.VoiceTestUrl" type="audio/mp3" />
+                </audio>
+            </div>
+        </div>
+
+        if (counter % 3 == 0)
+        {
+            <div class="row"></div>
+        }
+
+        counter++;
+    }
+</div>
+<div class="row">
+    <form action="/Home/SaveUploadedFile/" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
+
+        <div class="form-group">
+            <div class="col-md-12">
+                <input type="text" class="input-box" placeholder="Stemmeprøvetittel" name="title" />
+            </div>           
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-12">
+                <input type="text" class="input-box" placeholder="Kommentar" name="comment" />
+            </div>
+        </div>
+
+        <input name="id" value="@Model.ActorId" type="hidden" />
+        
+
+        <div class="fallback">
+            <input name="file" type="file" multiple />
+            <input type="submit" value="Upload" />
+        </div>
+        <input type="submit" value="CreateO" class="btn btn-default" />
+    </form>
+    
+</div>
+
+@section Scripts {
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/dropzone")
+   <script>
+
+       var myDropzone = $('#dropzoneForm');
+
+       //File Upload response from the server
+       Dropzone.options.dropzoneForm = {
+           autoProcessQueue: false,
+           uploadMultiple: true,
+           maxFiles: 1,
+
+
+
+           init: function () {
+
+               var myDropZone = this;
+
+               $('#dropzoneForm').on('submit', uploadPhoto);
+
+               function uploadPhoto(e) {
+                   e.preventDefault();
+                   e.stopPropagation();
+                   myDropZone.processQueue();
+               }
+
+               this.on("complete", function (data) {
+                   //var res = eval('(' + data.xhr.responseText + ')');
+                   var res = JSON.parse(data.xhr.responseText);
+               });
+           }
+       };
+
+       $('#uploadBtn').click(function () {
+           
+           //myDropzone.processQueue();
+           Dropzone.dropzoneForm.processQueue();
+
+       });
+    </script> 
+}
+

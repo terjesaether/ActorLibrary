@@ -1,0 +1,119 @@
+﻿@model ActorLibrary.Models.EditDialectViewModel
+
+@{
+    ViewBag.Title = "Dialekt";
+}
+
+<div class="row">
+    <h2>Ny dialekt / språk:</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.DialectName.DialectListName)
+
+            <div class="form-group">
+                
+                <div class="col-md-12">
+                    @*@Html.EditorFor(model => model.DialectName.DialectListName, new { htmlAttributes = new { @class = "form-control" } })*@
+                    <input type="text" name="newDialect" class="form-control" placeholder="Dialektnavn" />
+                    @Html.ValidationMessageFor(model => model.DialectName.DialectListName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Legg til" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="row">
+    <h2>Eksisterende dialekter:</h2>
+
+    <div class="col-md-12">Slett Navn</div>
+
+    @foreach (var d in Model.DialectNames)
+            {
+        <div class="col-md-12 air-below" id="item_@(d.DialectListId)">
+
+            <div class="col-md-6">
+                @*<button id="@d.DialectListId" class="btn btn-danger">Slett</button>*@
+                <span id="@d.DialectListId" class="glyphicon glyphicon-remove-circle deleteButton"></span>
+                @d.DialectListName
+
+            </div>
+        </div>
+
+    }
+
+</div>
+
+@section scripts {
+    <script src="~/Scripts/Knockout.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+
+            var viewModel = {
+                dialectList: ko.observableArray([]),
+                deleteDia: function (id) {
+                    $.get('/api/deletedialects/' + id)
+               .done(function (data) {
+                   viewModel.dialectList.push.apply(viewModel.dialectList, data);
+                   console.log('Done')
+               }).fail(function (err) {
+                   console.error(err);
+               })
+                }
+            };
+            ko.applyBindings(viewModel);
+
+            $.get('/api/getdialects')
+                .done(function (data) {
+                    viewModel.dialectList.push.apply(viewModel.dialectList, data);
+                    console.log('Dialects Done')
+                }).fail(function (err) {
+                    console.error(err);
+                })
+        });
+
+        $('button').click(function () {
+            var id = this.id;
+            deleteDialect(id);
+        });
+
+        $('.deleteButton').click(function () {
+            var id = this.id;
+            deleteDialect(id);
+        });
+
+        function deleteDialect(id) {
+            var newDialect =
+            {
+                DialectListId: id
+            }
+            $.post('/api/deletedialects/', newDialect)
+                .done(function (data) {
+                    //console.log(data);
+                    deletedItem(data);
+                    console.log('Done! Slettet id ' + data)
+                }).fail(function (err) {
+                    console.error(err);
+                })
+        }
+
+        function deletedItem(id) {
+            var item = $("#item_" + id);
+            //item.replaceWith("Slettet");
+            item.fadeOut(1000);
+        }
+        
+    </script>
+}

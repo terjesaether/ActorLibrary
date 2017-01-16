@@ -3,8 +3,12 @@
 @{
     ViewBag.Title = "Edit";
 }
+@section styles{
+    <link rel="Stylesheet" href="@Href("~/Content/bootstrap-select.css")" />
+    @Styles.Render("~/Content/jqueryuicss")
+}
 
-<h2>Rediger</h2>
+<h2>Rediger @Model.Actor.FullName</h2>
 
 
 @using (Html.BeginForm("Edit", "Home", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -19,15 +23,13 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Actor.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.Actor.FirstName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Actor.FirstName, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group">
+        
             @Html.LabelFor(model => model.Actor.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.Actor.LastName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Actor.LastName, "", new { @class = "text-danger" })
             </div>
@@ -35,16 +37,14 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Actor.BirthDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Actor.BirthDate, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.Actor.BirthDate, new { htmlAttributes = new { @class = "form-control", id="datepicker" } })
                 
                 @Html.ValidationMessageFor(model => model.Actor.BirthDate, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group">
+        
             @Html.LabelFor(model => model.Actor.Mail, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.Actor.Mail, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Actor.Mail, "", new { @class = "text-danger" })
             </div>
@@ -52,58 +52,102 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Actor.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.Actor.Phone, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Actor.Phone, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group">
+        
             @Html.LabelFor(model => model.Actor.Address, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.Actor.Address, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Actor.Address, "", new { @class = "text-danger" })
             </div>
         </div>
 
+        @*COMMENT*@
+
         <div class="form-group">
             @Html.LabelFor(model => model.Actor.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-4">
                 @Html.TextAreaFor(model => model.Actor.Comment, htmlAttributes: new { @class = "form-control", rows = "8" })
                 @Html.ValidationMessageFor(model => model.Actor.Comment, "", new { @class = "text-danger" })
             </div>
-        </div>
+
+            <div class="col-md-4 col-md-push-2">
+                <img src="@Model.Actor.ImgUrl" alt="@Model.Actor.FullName" class="img-responsive img-rounded" />
+            </div>
+
+            </div>
 
         <div class="form-group">
             @Html.Label("Velg bilde", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-4">
                 <input class="btn btn-default" type="file" id="ProfileImage" name="uploadImg" />
                 @Html.HiddenFor(model => model.Actor.ImgUrl)
             </div>
+            @*<div>
+
+            </div>*@
+
+            @Html.Label("Velg dialekt", new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownList("DialectListId", Model.DialectList, null, new { @class = "form-control selectpicker", multiple = true, id = "#dialectPicker" })
+                @foreach (var d in Model.Actor.Dialects)
+                {
+                    <p>@d.TheDialectName.DialectListName</p>
+                }
+            </div>
+            <div>
+                
+            </div>
+
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Actor.ActorGenderId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Actor.ActorGenderId, Model.GenderList)
+                @Html.DropDownListFor(model => model.Actor.ActorGenderId, Model.GenderList, new { @class = "form-control" })
                
                 
-                
             </div>
+            
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+        <div class="form-group pull-right">
+            
+            <div class="col-md-offset-8 col-md-4 btn-group">
+                <a href="/" class="btn btn-default">Avbryt</a>
+                <input type="submit" value="Lagre" class="btn btn-success" />
+                @Html.ActionLink("Legg til stemmeprøver", "AddAudioFiles", new { id = Model.Actor.ActorId }, new { @class = "btn btn-info" })
+                
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Tilbasjat", "Index")
+    @Html.ActionLink("Tilbake til " + Model.Actor.FullName, "Details", new { id = Model.Actor.ActorId })
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+<script src="~/Scripts/bootstrap-select.js" type="text/javascript"></script>
+<script>
+
+    $(document).ready(function () {
+        $('.selectpicker').selectpicker({
+            //style: 'btn-info',
+            //size: 4,
+            noneSelectedText: 'Ingen dialekt er valgt!',
+            title: 'Velg dialekt:'
+        });
+
+        $("#datepicker").datepicker({
+            changeYear: true,
+            dateFormat: "yy-mm-dd"
+        });
+    });
+
+</script>
 }

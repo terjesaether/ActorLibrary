@@ -9,15 +9,15 @@
 <p>
     @Html.ActionLink("Ny skuespiller", "Create", "Actor", null, null )
 </p>
-<div class="row">
-    <div class="col-md-2 text-left"><h3>@Html.DisplayNameFor(model => model.FullName):</h3></div>
-    <div class="col-md-1 text-left"><h3>Kjønn:</h3></div>
-    <div class="col-md-2 text-left"><h3>@Html.DisplayNameFor(model => model.Mail):</h3></div>
-    <div class="col-md-1 text-left"><h3>@Html.DisplayNameFor(model => model.Phone):</h3></div>
+<div class="row air-below">
+    <div class="col-md-2 text-left"><h4>@Html.DisplayNameFor(model => model.FullName):</h4></div>
+    <div class="col-md-1 text-left"><h4>Kjønn:</h4></div>
+    <div class="col-md-2 text-left"><h4>@Html.DisplayNameFor(model => model.Mail):</h4></div>
+    <div class="col-md-1 text-left"><h4>@Html.DisplayNameFor(model => model.Phone):</h4></div>
 
-    <div class="col-md-1"><h3>Bilde:</h3></div>
-    <div class="col-md-4"><h3>Kommentar:</h3></div>
-    <div class="col-md-1"><h3></h3></div>
+    <div class="col-md-1"><h4>Bilde:</h4></div>
+    <div class="col-md-4"><h4>Kommentar:</h4></div>
+    <div class="col-md-1"><h4></h4></div>
     </div>
 
 @{ var counter = 0;}
@@ -25,7 +25,7 @@
     @foreach (var item in Model)
     {
         <div class="row">
-            <div class="col-md-2 text-left">@Html.DisplayFor(modelItem => item.FullName)</div>
+            <div class="col-md-2 text-left">@Html.ActionLink(item.FullName, "Details", new { id = item.ActorId} )</div>
             <div class="col-md-1 text-left">@ViewBag.GenderNames[counter]</div>
             <div class="col-md-2 text-left">@Html.DisplayFor(modelItem => item.Mail)</div>
             <div class="col-md-1 text-left">@Html.DisplayFor(modelItem => item.Phone)</div>

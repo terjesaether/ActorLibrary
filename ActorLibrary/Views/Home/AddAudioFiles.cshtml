@@ -4,8 +4,8 @@
     ViewBag.Title = "AddAudioFiles";
 }
 
-
 <h1>Legg til stemmeprøver for @Model.FullName</h1>
+
 <div class="row">
 
     @{int counter = 1;}
@@ -42,19 +42,17 @@
         @Html.HiddenFor(model => model.ActorId)
 
         <div class="form-group">
-
             <div class="col-md-12">
                 <input type="text" class="input-box" placeholder="Stemmeprøvetittel" name="title" id="audioTitle" />
+                <input type="text" class="input-box" placeholder="Kommentar" name="comment" id="comment" />
             </div>
             <br />
             <div class="col-md-12">
 
                 <input type="file" class="btn btn-default" placeholder="Velg stemmeprøve" name="audioFile" id="audioFile" value="Velg stemmeprøve" />
-                @ViewBag.Error
+                <strong style='color:red;'>@ViewBag.Error</strong>
             </div>
         </div>
-
-
 
         <div class="form-group">
             <div class="col-md-12">
@@ -70,17 +68,16 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <script>
+    @*<script>
         $('video,audio').mediaelementplayer(
             {
                 audioWidth: "100%",
                 startVolume: 0.8,
                 pauseOtherPlayers: true,
                 enableKeyboard: true
-
             }
 
             );
-    </script>
+    </script>*@
 }
 

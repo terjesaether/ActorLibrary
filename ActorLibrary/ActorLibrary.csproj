@@ -52,12 +52,24 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -167,126 +179,36 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActorController.cs" />
+    <Compile Include="Controllers\API\ActorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201609161723457_Init.cs" />
-    <Compile Include="Migrations\201609161723457_Init.Designer.cs">
-      <DependentUpon>201609161723457_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201701120029365_Init.cs" />
+    <Compile Include="Migrations\201701120029365_Init.Designer.cs">
+      <DependentUpon>201701120029365_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201609161746174_AddedVoiceTests.cs" />
-    <Compile Include="Migrations\201609161746174_AddedVoiceTests.Designer.cs">
-      <DependentUpon>201609161746174_AddedVoiceTests.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609171159375_AddedRequired.cs" />
-    <Compile Include="Migrations\201609171159375_AddedRequired.Designer.cs">
-      <DependentUpon>201609171159375_AddedRequired.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609191740390_AddedCommentField.cs" />
-    <Compile Include="Migrations\201609191740390_AddedCommentField.Designer.cs">
-      <DependentUpon>201609191740390_AddedCommentField.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609191800515_AddedGender.cs" />
-    <Compile Include="Migrations\201609191800515_AddedGender.Designer.cs">
-      <DependentUpon>201609191800515_AddedGender.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609191803562_AddedGenderVirtual.cs" />
-    <Compile Include="Migrations\201609191803562_AddedGenderVirtual.Designer.cs">
-      <DependentUpon>201609191803562_AddedGenderVirtual.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609191817512_AddedGenderClass.cs" />
-    <Compile Include="Migrations\201609191817512_AddedGenderClass.Designer.cs">
-      <DependentUpon>201609191817512_AddedGenderClass.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609192104242_AddedGenderString.cs" />
-    <Compile Include="Migrations\201609192104242_AddedGenderString.Designer.cs">
-      <DependentUpon>201609192104242_AddedGenderString.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609201718115_AddedBirthDate.cs" />
-    <Compile Include="Migrations\201609201718115_AddedBirthDate.Designer.cs">
-      <DependentUpon>201609201718115_AddedBirthDate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609201720594_AddedBirthDate2.cs" />
-    <Compile Include="Migrations\201609201720594_AddedBirthDate2.Designer.cs">
-      <DependentUpon>201609201720594_AddedBirthDate2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609201727086_AddedBirthDateDataType.cs" />
-    <Compile Include="Migrations\201609201727086_AddedBirthDateDataType.Designer.cs">
-      <DependentUpon>201609201727086_AddedBirthDateDataType.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609201734214_AddedBirthDateDataTypeDate.cs" />
-    <Compile Include="Migrations\201609201734214_AddedBirthDateDataTypeDate.Designer.cs">
-      <DependentUpon>201609201734214_AddedBirthDateDataTypeDate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609211518520_AddedGenderClass1.cs" />
-    <Compile Include="Migrations\201609211518520_AddedGenderClass1.Designer.cs">
-      <DependentUpon>201609211518520_AddedGenderClass1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609211532115_AddedGenderClassFix.cs" />
-    <Compile Include="Migrations\201609211532115_AddedGenderClassFix.Designer.cs">
-      <DependentUpon>201609211532115_AddedGenderClassFix.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609211534570_AddedGenderClassRevertToString.cs" />
-    <Compile Include="Migrations\201609211534570_AddedGenderClassRevertToString.Designer.cs">
-      <DependentUpon>201609211534570_AddedGenderClassRevertToString.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609211613233_AddedGenderClassGenderToGenderId.cs" />
-    <Compile Include="Migrations\201609211613233_AddedGenderClassGenderToGenderId.Designer.cs">
-      <DependentUpon>201609211613233_AddedGenderClassGenderToGenderId.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609211729545_AddedAddedDate.cs" />
-    <Compile Include="Migrations\201609211729545_AddedAddedDate.Designer.cs">
-      <DependentUpon>201609211729545_AddedAddedDate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609211743493_AddedAddedDateAddedConstr.cs" />
-    <Compile Include="Migrations\201609211743493_AddedAddedDateAddedConstr.Designer.cs">
-      <DependentUpon>201609211743493_AddedAddedDateAddedConstr.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609211841199_AddedAgeField.cs" />
-    <Compile Include="Migrations\201609211841199_AddedAgeField.Designer.cs">
-      <DependentUpon>201609211841199_AddedAgeField.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609281551164_AddedAgeRanges.cs" />
-    <Compile Include="Migrations\201609281551164_AddedAgeRanges.Designer.cs">
-      <DependentUpon>201609281551164_AddedAgeRanges.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609281607210_AddedAgeRangesAgein.cs" />
-    <Compile Include="Migrations\201609281607210_AddedAgeRangesAgein.Designer.cs">
-      <DependentUpon>201609281607210_AddedAgeRangesAgein.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609281639338_AddedDialect.cs" />
-    <Compile Include="Migrations\201609281639338_AddedDialect.Designer.cs">
-      <DependentUpon>201609281639338_AddedDialect.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609281719184_ChangedDialect.cs" />
-    <Compile Include="Migrations\201609281719184_ChangedDialect.Designer.cs">
-      <DependentUpon>201609281719184_ChangedDialect.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609281731336_AddedDialectToActor.cs" />
-    <Compile Include="Migrations\201609281731336_AddedDialectToActor.Designer.cs">
-      <DependentUpon>201609281731336_AddedDialectToActor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609281915452_AddedDialectListAndDialects.cs" />
-    <Compile Include="Migrations\201609281915452_AddedDialectListAndDialects.Designer.cs">
-      <DependentUpon>201609281915452_AddedDialectListAndDialects.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609282006057_FixedDialects.cs" />
-    <Compile Include="Migrations\201609282006057_FixedDialects.Designer.cs">
-      <DependentUpon>201609282006057_FixedDialects.cs</DependentUpon>
+    <Compile Include="Migrations\201701120033556_ChangedToDialectNames.cs" />
+    <Compile Include="Migrations\201701120033556_ChangedToDialectNames.Designer.cs">
+      <DependentUpon>201701120033556_ChangedToDialectNames.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Actor.cs" />
     <Compile Include="Models\ActorContext.cs" />
-    <Compile Include="Models\ActorViewModel.cs" />
     <Compile Include="Models\CommonOperations.cs" />
-    <Compile Include="Models\EditCreateViewModel.cs" />
+    <Compile Include="Models\ActorRepository.cs" />
+    <Compile Include="Models\ExtensionMethods.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\SortingEnums.cs" />
+    <Compile Include="Models\SortingOperations.cs" />
+    <Compile Include="Models\UploadFileOperations.cs" />
+    <Compile Include="Models\ViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -305,36 +227,171 @@
     <Content Include="audio\_guro_gaunnuers_Den_andre_0.mp3" />
     <Content Include="audio\_randi_raaa_Første__0.mp3" />
     <Content Include="audio\_randi_rulle_Ttttttt_0.mp3" />
+    <Content Include="Content\bootstrap-select.css" />
+    <Content Include="Content\bootstrap-select.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\site.css" />
-    <Content Include="img\profile_2.jpg" />
-    <Content Include="img\profile_erik_skold.jpg" />
-    <Content Include="img\profile_frank_roger.jpg" />
-    <Content Include="img\profile_gunnar_gunnar.jpg" />
-    <Content Include="img\profile_guro_gaunnuers.jpg" />
-    <Content Include="img\profile_hans_petter.jpg" />
-    <Content Include="img\profile_img_Turid.jpg" />
-    <Content Include="img\profile_randi_raaa_0.jpg" />
-    <Content Include="img\profile_randi_rulle.jpg" />
-    <Content Include="img\profile_roger_roger.jpg" />
-    <Content Include="img\profile_rt_rt.jpg" />
-    <Content Include="img\profile_tor_bjarne.jpg" />
-    <Content Include="img\profile_va_va.jpg" />
-    <Content Include="img\profile_ya_ya.jpg" />
-    <Content Include="img\Ryan-Gosling.jpg" />
+    <Content Include="Images\profiles\Jorunn_A8B2064-kort2-1038x576.jpg" />
+    <Content Include="Images\profiles\profile_2.jpg" />
+    <Content Include="Images\profiles\profile_anderz_eide.jpg" />
+    <Content Include="Images\profiles\profile_default.jpg" />
+    <Content Include="Images\profiles\profile_dennis _quaid.jpg" />
+    <Content Include="Images\profiles\profile_erik_skold.jpg" />
+    <Content Include="Images\profiles\profile_frankfranl_bikk.jpg" />
+    <Content Include="Images\profiles\profile_frank_hvam.jpg" />
+    <Content Include="Images\profiles\profile_frank_hvemsen.jpg" />
+    <Content Include="Images\profiles\profile_gunnar_gunnar.jpg" />
+    <Content Include="Images\profiles\profile_guro_gaunnuers.jpg" />
+    <Content Include="Images\profiles\profile_hans_petter.jpg" />
+    <Content Include="Images\profiles\profile_randi_raaa_0.jpg" />
+    <Content Include="Images\profiles\profile_randi_rulle.jpg" />
+    <Content Include="Images\profiles\profile_roger_roger.jpg" />
+    <Content Include="Images\profiles\profile_rt_rt.jpg" />
+    <Content Include="Images\profiles\profile_scott_maurstad.jpg" />
+    <Content Include="Images\profiles\profile_sibjørn _solheim.jpg" />
+    <Content Include="Images\profiles\profile_tor_bjarne.jpg" />
+    <Content Include="Images\profiles\profile_tylla_bikk.jpg" />
+    <Content Include="Images\profiles\profile_ulf_hansen.jpg" />
+    <Content Include="Images\profiles\profile_va_va.jpg" />
+    <Content Include="Images\profiles\profile_ya_ya.jpg" />
+    <Content Include="Images\profiles\profile__jorunn_torsheim_0.jpg" />
+    <Content Include="Images\profiles\profile__sigbjørn _solheim_22.jpg" />
+    <Content Include="Images\profiles\profile__sigbjørn_solheim_0.jpg" />
+    <Content Include="Images\profiles\profile__terje_sæther_21.jpg" />
+    <Content Include="Images\WallImages\imagepath\la-fi-hy-ducati-2015-scrambler-20140924.jpg" />
+    <Content Include="Scripts\AudioPlayerFix.js" />
+    <Content Include="Scripts\bootstrap-select.js" />
+    <Content Include="Scripts\bootstrap-select.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="img\profile_img_turid_persen" />
-    <Content Include="img\profile_turid_persen" />
-    <None Include="Properties\PublishProfiles\dubbing.terjesaether.com.pubxml" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Content\bootstrap-select.css.map" />
+    <None Include="Properties\PublishProfiles\archive.terjesaether.com.pubxml" />
+    <None Include="Properties\PublishProfiles\dubbing.terjesaether.com - Web Deploy.pubxml" />
+    <Content Include="Scripts\bootstrap-select.js.map" />
+    <Content Include="Scripts\dropzone\basic.css" />
+    <Content Include="Scripts\dropzone\basic.min.css" />
+    <Content Include="Scripts\dropzone\dropzone-amd-module.js" />
+    <Content Include="Scripts\dropzone\dropzone-amd-module.min.js" />
+    <Content Include="Scripts\dropzone\dropzone.css" />
+    <Content Include="Scripts\dropzone\dropzone.js" />
+    <Content Include="Scripts\dropzone\dropzone.min.css" />
+    <Content Include="Scripts\dropzone\dropzone.min.js" />
+    <Content Include="Scripts\i18n\defaults-ar_AR.js" />
+    <Content Include="Scripts\i18n\defaults-ar_AR.min.js" />
+    <Content Include="Scripts\i18n\defaults-bg_BG.js" />
+    <Content Include="Scripts\i18n\defaults-bg_BG.min.js" />
+    <Content Include="Scripts\i18n\defaults-cro_CRO.js" />
+    <Content Include="Scripts\i18n\defaults-cro_CRO.min.js" />
+    <Content Include="Scripts\i18n\defaults-cs_CZ.js" />
+    <Content Include="Scripts\i18n\defaults-cs_CZ.min.js" />
+    <Content Include="Scripts\i18n\defaults-da_DK.js" />
+    <Content Include="Scripts\i18n\defaults-da_DK.min.js" />
+    <Content Include="Scripts\i18n\defaults-de_DE.js" />
+    <Content Include="Scripts\i18n\defaults-de_DE.min.js" />
+    <Content Include="Scripts\i18n\defaults-en_US.js" />
+    <Content Include="Scripts\i18n\defaults-en_US.min.js" />
+    <Content Include="Scripts\i18n\defaults-es_CL.js" />
+    <Content Include="Scripts\i18n\defaults-es_CL.min.js" />
+    <Content Include="Scripts\i18n\defaults-es_ES.js" />
+    <Content Include="Scripts\i18n\defaults-es_ES.min.js" />
+    <Content Include="Scripts\i18n\defaults-eu.js" />
+    <Content Include="Scripts\i18n\defaults-eu.min.js" />
+    <Content Include="Scripts\i18n\defaults-fa_IR.js" />
+    <Content Include="Scripts\i18n\defaults-fa_IR.min.js" />
+    <Content Include="Scripts\i18n\defaults-fi_FI.js" />
+    <Content Include="Scripts\i18n\defaults-fi_FI.min.js" />
+    <Content Include="Scripts\i18n\defaults-fr_FR.js" />
+    <Content Include="Scripts\i18n\defaults-fr_FR.min.js" />
+    <Content Include="Scripts\i18n\defaults-hu_HU.js" />
+    <Content Include="Scripts\i18n\defaults-hu_HU.min.js" />
+    <Content Include="Scripts\i18n\defaults-id_ID.js" />
+    <Content Include="Scripts\i18n\defaults-id_ID.min.js" />
+    <Content Include="Scripts\i18n\defaults-it_IT.js" />
+    <Content Include="Scripts\i18n\defaults-it_IT.min.js" />
+    <Content Include="Scripts\i18n\defaults-ko_KR.js" />
+    <Content Include="Scripts\i18n\defaults-ko_KR.min.js" />
+    <Content Include="Scripts\i18n\defaults-lt_LT.js" />
+    <Content Include="Scripts\i18n\defaults-lt_LT.min.js" />
+    <Content Include="Scripts\i18n\defaults-nb_NO.js" />
+    <Content Include="Scripts\i18n\defaults-nb_NO.min.js" />
+    <Content Include="Scripts\i18n\defaults-nl_NL.js" />
+    <Content Include="Scripts\i18n\defaults-nl_NL.min.js" />
+    <Content Include="Scripts\i18n\defaults-pl_PL.js" />
+    <Content Include="Scripts\i18n\defaults-pl_PL.min.js" />
+    <Content Include="Scripts\i18n\defaults-pt_BR.js" />
+    <Content Include="Scripts\i18n\defaults-pt_BR.min.js" />
+    <Content Include="Scripts\i18n\defaults-pt_PT.js" />
+    <Content Include="Scripts\i18n\defaults-pt_PT.min.js" />
+    <Content Include="Scripts\i18n\defaults-ro_RO.js" />
+    <Content Include="Scripts\i18n\defaults-ro_RO.min.js" />
+    <Content Include="Scripts\i18n\defaults-ru_RU.js" />
+    <Content Include="Scripts\i18n\defaults-ru_RU.min.js" />
+    <Content Include="Scripts\i18n\defaults-sk_SK.js" />
+    <Content Include="Scripts\i18n\defaults-sk_SK.min.js" />
+    <Content Include="Scripts\i18n\defaults-sl_SI.js" />
+    <Content Include="Scripts\i18n\defaults-sl_SI.min.js" />
+    <Content Include="Scripts\i18n\defaults-sv_SE.js" />
+    <Content Include="Scripts\i18n\defaults-sv_SE.min.js" />
+    <Content Include="Scripts\i18n\defaults-tr_TR.js" />
+    <Content Include="Scripts\i18n\defaults-tr_TR.min.js" />
+    <Content Include="Scripts\i18n\defaults-ua_UA.js" />
+    <Content Include="Scripts\i18n\defaults-ua_UA.min.js" />
+    <Content Include="Scripts\i18n\defaults-zh_CN.js" />
+    <Content Include="Scripts\i18n\defaults-zh_CN.min.js" />
+    <Content Include="Scripts\i18n\defaults-zh_TW.js" />
+    <Content Include="Scripts\i18n\defaults-zh_TW.min.js" />
+    <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Scripts\jquery-1.12.4.js" />
+    <Content Include="Scripts\jquery-1.12.4.min.js" />
+    <Content Include="Scripts\jquery-1.12.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -373,12 +430,16 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Soundmanager.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Views\GenericError.html" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -414,6 +475,8 @@
     <Content Include="Views\Home\Edit.cshtml" />
     <Content Include="Views\Home\Create.cshtml" />
     <Content Include="Views\Home\AddAudioFiles.cshtml" />
+    <Content Include="Views\Home\AddFilesDropzone.cshtml" />
+    <Content Include="Views\Actor\EditDialect.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -425,86 +488,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201609161723457_Init.resx">
-      <DependentUpon>201609161723457_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701120029365_Init.resx">
+      <DependentUpon>201701120029365_Init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609161746174_AddedVoiceTests.resx">
-      <DependentUpon>201609161746174_AddedVoiceTests.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609171159375_AddedRequired.resx">
-      <DependentUpon>201609171159375_AddedRequired.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609191740390_AddedCommentField.resx">
-      <DependentUpon>201609191740390_AddedCommentField.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609191800515_AddedGender.resx">
-      <DependentUpon>201609191800515_AddedGender.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609191803562_AddedGenderVirtual.resx">
-      <DependentUpon>201609191803562_AddedGenderVirtual.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609191817512_AddedGenderClass.resx">
-      <DependentUpon>201609191817512_AddedGenderClass.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609192104242_AddedGenderString.resx">
-      <DependentUpon>201609192104242_AddedGenderString.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609201718115_AddedBirthDate.resx">
-      <DependentUpon>201609201718115_AddedBirthDate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609201720594_AddedBirthDate2.resx">
-      <DependentUpon>201609201720594_AddedBirthDate2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609201727086_AddedBirthDateDataType.resx">
-      <DependentUpon>201609201727086_AddedBirthDateDataType.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609201734214_AddedBirthDateDataTypeDate.resx">
-      <DependentUpon>201609201734214_AddedBirthDateDataTypeDate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609211518520_AddedGenderClass1.resx">
-      <DependentUpon>201609211518520_AddedGenderClass1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609211532115_AddedGenderClassFix.resx">
-      <DependentUpon>201609211532115_AddedGenderClassFix.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609211534570_AddedGenderClassRevertToString.resx">
-      <DependentUpon>201609211534570_AddedGenderClassRevertToString.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609211613233_AddedGenderClassGenderToGenderId.resx">
-      <DependentUpon>201609211613233_AddedGenderClassGenderToGenderId.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609211729545_AddedAddedDate.resx">
-      <DependentUpon>201609211729545_AddedAddedDate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609211743493_AddedAddedDateAddedConstr.resx">
-      <DependentUpon>201609211743493_AddedAddedDateAddedConstr.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609211841199_AddedAgeField.resx">
-      <DependentUpon>201609211841199_AddedAgeField.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609281551164_AddedAgeRanges.resx">
-      <DependentUpon>201609281551164_AddedAgeRanges.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609281607210_AddedAgeRangesAgein.resx">
-      <DependentUpon>201609281607210_AddedAgeRangesAgein.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609281639338_AddedDialect.resx">
-      <DependentUpon>201609281639338_AddedDialect.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609281719184_ChangedDialect.resx">
-      <DependentUpon>201609281719184_ChangedDialect.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609281731336_AddedDialectToActor.resx">
-      <DependentUpon>201609281731336_AddedDialectToActor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609281915452_AddedDialectListAndDialects.resx">
-      <DependentUpon>201609281915452_AddedDialectListAndDialects.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609282006057_FixedDialects.resx">
-      <DependentUpon>201609282006057_FixedDialects.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701120033556_ChangedToDialectNames.resx">
+      <DependentUpon>201701120033556_ChangedToDialectNames.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

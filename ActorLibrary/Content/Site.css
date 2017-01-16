@@ -23,9 +23,20 @@ textarea {
     max-width: 280px;
 }
 
+h4 {
+    text-transform: uppercase;
+    margin: 0;
+    
+}
+
+.sorting-row h4 {
+    font-size: 1em;
+}
+
 .profile-img {
     overflow: hidden;
-   height: 200px;
+    height: 150px;
+    background: #aed0ea;
 }
 
 .input-box {
@@ -46,6 +57,19 @@ textarea {
 .actor-box:hover {
     background: #e8e8e8;
     cursor: pointer;
+    text-decoration: none;
+}
+.actor-box a a:hover {
+   text-decoration: none;
+}
+
+.actor-box a:nth-child(1):hover 
+{
+   text-decoration: none;
+}
+
+.no-underline {
+    text-decoration: none;
 }
 
 .img-margin {
@@ -67,5 +91,34 @@ textarea {
     height: 90px;
     padding: 10px;
     
+}
+
+#dropZone {
+        background: gray;
+        border: black dashed 3px;
+        width: 200px;
+        padding: 50px;
+        text-align: center;
+        color: white;
+    }
+
+.deleting-item 
+{
+    opacity: 0;
+    transition: all 1s;
+}
+
+.air-below {
+    padding-bottom: 20px;
+    
+}
+
+.deleteButton {
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.deleteButton:hover {
+    color: red;
 }
 

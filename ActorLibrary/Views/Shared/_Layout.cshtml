@@ -7,6 +7,8 @@
     <title>@ViewBag.Title - Skuespillerarkiv</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/dropzonescss")
+    @RenderSection("styles", required: false)
 
     
 </head>
@@ -25,8 +27,9 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Heim", "Index", "Home")</li>
 
-                    <li>@Html.ActionLink("Skuespillerarkiv", "Index", "Actor")</li>
+                    @*<li>@Html.ActionLink("Skuespillerarkiv", "Index", "Actor")</li>*@
                     <li>@Html.ActionLink("Ny skuespiller", "Create", "Home")</li>
+                    <li>@Html.ActionLink("Rediger dialekter", "EditDialect", "Actor")</li>
                 </ul>
 
                 @using (Html.BeginForm("Search", "Home", null, FormMethod.Post, new { @class = "navbar-form navbar-right" }))
@@ -45,7 +48,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Actor Library</p>
         </footer>
     </div>
 

@@ -33,7 +33,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Actor.BirthDate) 
+                    @Html.DisplayFor(model => model.Actor.BirthDate)
                 </dd>
 
                 <dt>
@@ -78,6 +78,19 @@
                     @ViewBag.GenderName
                 </dd>
 
+                <dt>
+                    Dialekter:
+                </dt>
+
+                <dd>
+                    @foreach (var dialect in Model.Actor.Dialects)
+                    {
+                        <span>@dialect.TheDialectName.DialectListName, </span>
+                    }
+
+                    
+                </dd>
+
             </dl>
         </div>
         <div class="col-md-4">
@@ -85,7 +98,7 @@
             @Html.DisplayFor(model => model.Actor.Comment)
         </div>
         <div class="col-md-4">
-            <img class="img-responsive" src="@Model.Actor.ImgUrl" alt="@Model.Actor.FullName" />
+            <img class="img-responsive" src="@Model.Actor.ImgUrl" alt="@Model.Actor.fullName()" />
         </div>
 
     </div>
@@ -113,26 +126,31 @@
 </div>
 <br />
 <p>
-    @Html.ActionLink("Rediger", "Edit", new { id = Model.Actor.ActorId }, new { @class="btn btn-info"}) |
-    @Html.ActionLink("Tilbake", "Index", null, new { @class = "btn btn-default" }) |
+    <div class="btn-group" role="group">
+        @Html.ActionLink("Tilbake", "Index", null, new { @class = "btn btn-info" })
 
-    <a class="btn btn-danger" href="javascript:AjaxDelete('@Url.Action("Delete", "Home", new { id = Model.Actor.ActorId})')">Slett</a>
+        @Html.ActionLink("Rediger", "Edit", new { id = Model.Actor.ActorId }, new { @class = "btn btn-info" })
 
+        @Html.ActionLink("Legg til stemmeprøver", "AddAudioFiles", new { id = Model.Actor.ActorId }, new { @class = "btn btn-info" })
+
+        <a class="btn btn-danger" href="javascript:AjaxDelete('@Url.Action("Delete", "Home", new { id = Model.Actor.ActorId})')">Slett skuespiller</a>
+
+    </div>
 
 </p>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
-        $('video,audio').mediaelementplayer(
-            {
-                audioWidth: "100%",
-                startVolume: 0.8,
-                pauseOtherPlayers: true,
-                enableKeyboard: true
-            }
-            );
-        
+        //$('video,audio').mediaelementplayer(
+        //    {
+        //        audioWidth: "100%",
+        //        startVolume: 0.8,
+        //        pauseOtherPlayers: true,
+        //        enableKeyboard: true
+        //    }
+        //    );
+
 
         function AjaxDelete(urlAction) {
             if (confirm("Er du sikker?")) {

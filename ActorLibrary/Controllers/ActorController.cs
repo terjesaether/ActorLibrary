@@ -64,7 +64,7 @@ namespace ActorLibrary.Controllers
                     {
                         // TO-DO Sjekk for identisk navn
 
-                        string filename = "profile" + actor.Filename + ".jpg";
+                        string filename = "profile" + actor.fileName() + ".jpg";
                         string fullFilename = Path.Combine(pathToSaveImg, filename);
                         uploadImg.SaveAs(fullFilename);
                         actor.ImgUrl = "/img/" + filename.ToString();
@@ -75,7 +75,7 @@ namespace ActorLibrary.Controllers
                     {
                         // TO-DO Sjekk for identisk navn
 
-                        string filename = actor.Filename + "_" + audioTitle.Replace(" ", "_") + "_" + actor.ActorId + ".mp3";
+                        string filename = actor.fileName() + "_" + audioTitle.Replace(" ", "_") + "_" + actor.ActorId + ".mp3";
                         string fullFilename = Path.Combine(pathToSaveAudio, filename);
                         uploadAudio.SaveAs(fullFilename);
                         var vt = new VoiceTest();
@@ -103,8 +103,6 @@ namespace ActorLibrary.Controllers
             }
             return View(actor);
         }
-
-
 
 
 
@@ -151,5 +149,37 @@ namespace ActorLibrary.Controllers
                 return View();
             }
         }
+
+        [HttpGet]
+        public ActionResult EditDialect()
+        {
+            var vm = new EditDialectViewModel
+            {
+                DialectNames = _db.DialectNames.ToList()
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult EditDialect(string newDialect)
+        {
+
+            var d = Request.Form["DialectName.DialectListName"];
+
+            _db.DialectNames.Add(new DialectName
+            {
+                DialectListName = newDialect
+            });
+            _db.SaveChanges();
+
+            var vm = new EditDialectViewModel
+            {
+                DialectNames = _db.DialectNames.ToList()
+            };
+
+            return View(vm);
+        }
     }
 }
+

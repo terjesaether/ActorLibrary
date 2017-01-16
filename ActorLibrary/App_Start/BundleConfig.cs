@@ -12,6 +12,9 @@ namespace ActorLibrary
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery.unobtrusive-ajax.min.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+                        "~/Scripts/jquery-ui-1.12.1.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
@@ -32,7 +35,8 @@ namespace ActorLibrary
                       ));
 
             bundles.Add(new ScriptBundle("~/bundles/mediaelementplayer").Include(
-                      "~/Scripts/mediaelement/mediaelement-and-player.js"
+                      "~/Scripts/mediaelement/mediaelement-and-player.js",
+                      "~/Scripts/AudioPlayerFix.js"
 
                       ));
 
@@ -42,15 +46,27 @@ namespace ActorLibrary
                       ));
 
             bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
-                      "~/Scripts/Scripts/knockout.js"
+                      "~/Scripts/knockout.js"
                       ));
+
+            bundles.Add(new ScriptBundle("~/bundles/dropzone").Include(
+                      "~/Scripts/dropzone/dropzone.min.js"
+                      ));
+
+            bundles.Add(new StyleBundle("~/Content/dropzonescss").Include(
+                     "~/Scripts/dropzone/basic.min.css",
+                     "~/Scripts/dropzone/dropzone.min.css"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Scripts/mediaelement/mediaelementplayer.css",
-                      "~/Scripts/jQuery-file-upload/css/jquery.fileupload.css",
+                      //"~/Scripts/jQuery-file-upload/css/jquery.fileupload.css",
                       "~/Content/site.css"
                       ));
+
+            bundles.Add(new StyleBundle("~/Content/jqueryuicss").Include(
+                     "~/Content/themes/base/jquery-ui.css",
+                     "~/Content/themes/base/datepicker.css"));
         }
     }
 }

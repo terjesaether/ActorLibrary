@@ -1,130 +1,209 @@
 ﻿@model IEnumerable<ActorLibrary.Models.Actor>
 
+@using ActorLibrary.Models;
+
 @{
     ViewBag.Title = "Home Page";
+}
+@section styles{
+    <link rel="Stylesheet" href="@Href("~/Content/bootstrap-select.css")" />
 }
 
 <div class="">
     <h1>Skuespillerarkiv</h1>
 </div>
 
-<div class="row">
+<div class="row sorting-row">
+
+    <div class="col-md-2"><h4>Sorter etter:</h4></div>
+    <div class="col-md-1"><h4>Fra år:</h4></div>
+    <div class="col-md-1"><h4>Til år:</h4></div>
+    <div class="col-md-2"><h4>Dialekt:</h4></div>
+    <div class="col-md-2"><h4>Kjønn:</h4></div>
+    <div class="col-md-2"><h4>Alder:</h4></div>
+    <div class="col-md-1"><h4>Sorter:</h4></div>
+    <div class="col-md-1"><h4></h4></div>
 
     <br />
-    @using (Html.BeginForm("Index", "Home"))
-            {
+    @using (Html.BeginForm("Sort", "Home", FormMethod.Post, new { id = "sortForm" }))
+    {
         <div class="col-md-2">
 
-            @Html.DropDownList("sortBy", new SelectList(ViewBag.sortList, "Value", "Text"), "Sorter etter ...", new { @onchange = "this.form.submit();" })
+            @Html.DropDownList("sortBy", new SelectList(ViewBag.sortList, "Value", "Text"), null, new { @class = "form-control" })
+
+        </div>
+
+        <div class="col-md-1">
+
+            @*@Html.DropDownList("fromAge", new SelectList(ViewBag.ageRangeList, "Value", "Text"), "Fra alder ...", new { @class = "form-control" })*@
+
+            <input type="number" value="10" name="fromAge" class="form-control" />
+
+        </div>
+
+        <div class="col-md-1">
+
+            <input type="number" value="40" name="toAge" class="form-control" />
 
         </div>
 
         <div class="col-md-2">
 
-            @Html.DropDownList("fromAge", new SelectList(ViewBag.ageRangeList, "Value", "Text"), "Fra alder ...", new { @onchange = "this.form.submit();" })
+            @Html.DropDownList("sortByDialect", new SelectList(ViewBag.dialectsList, "Value", "Text"), null, new { @class = "form-control selectpicker", multiple = true, id = "#dialectPicker" })
 
         </div>
 
         <div class="col-md-2">
 
-            @Html.DropDownList("toAge", new SelectList(ViewBag.ageRangeList, "Value", "Text"), "Til alder ...", new { @onchange = "this.form.submit();" })
+            @Html.DropDownList("sortByGender", new SelectList(ViewBag.genderList, "Value", "Text"), null, new { @class = "form-control" })
+
+        </div>
+        <div class="col-md-2">
+
+            @Html.DropDownList("sortByAgeDefinition", new SelectList(ViewBag.agesList, "Value", "Text"), "Velg alder ...", new { @class = "form-control" })
 
         </div>
 
-        <div class="col-md-2">
+        <div class="col-md-1">
 
-            @Html.DropDownList("dialect", new SelectList(ViewBag.dialectsList, "Value", "Text"), "Dialekt ...", new { @onchange = "this.form.submit();" })
+            <input type="submit" class="btn btn-default" value="Sorter" />
+        </div>
+        <div class="col-md-1">
 
+            <a class="btn btn-default" href="/">Nullstill</a>
         </div>
     }
 </div>
-    <br />
-    <div class="row">
-        @{int counter = 1;
-            string alternateBgr = "";}
+<br />
+<div class="row">
 
-        @foreach (var actor in Model)
+    @{int counter = 1;
+        string alternateBgr = "";
+        if (Model.Count() == 0)
         {
-            //if (counter % 2 == 0)
-            //{
-            //    alternateBgr = "alternate";
-            //}
-            //else
-            //{
-            //    alternateBgr = "";
-            //}
+            <p>Ingenting å vise ...</p>
+        }
+        }
 
-            <div class="col-md-4 @alternateBgr actor-box">
+    @foreach (var actor in Model)
+    {
+
+        //BOXEN BEGYNNER HER
+
+        <div class="col-md-3 @alternateBgr actor-box">
+            <a href="/Home/Details/@actor.ActorId">
                 <div class="profile-img">
 
-                    <img class="img-responsive" src="@actor.ImgUrl" alt="Profil" />
-                </div>
-                <div class="col-md-12">
-                    <h2>
-                        @Html.ActionLink(actor.FullName, "Details", new { id = actor.ActorId })
 
-                </h2>
-                <br />
+                    <img class="img-responsive" src="@actor.ImgUrl" alt="Profil" />
+
+                </div>
+                <div class="col-md-12 no-underline">
+                    <h3>
+
+                        @actor.FullName
+                    </h3>
+                    <br />
                     @if (actor.VoiceTests.Count > 0)
                     {
 
-                <ul class="list-group">
+                        <ul class="list-group">
 
-                    @foreach (var vt in actor.VoiceTests.Take(3))
+                            @foreach (var vt in actor.VoiceTests.Take(3))
                     {
 
-                        <li class="list-group-item">
-                            @Html.DisplayFor(vtItem => vt.VoiceTestTitle)
-                            <audio controls>
-                                <source src="@vt.VoiceTestUrl" type="audio/mp3" />
-                            </audio>
+                                <li class="list-group-item">
+                                    @Html.DisplayFor(vtItem => vt.VoiceTestTitle)
+                                    <audio controls>
+                                        <source src="@vt.VoiceTestUrl" type="audio/mp3" />
+                                    </audio>
 
-                        </li>
+                                </li>
 
-                    }
+                            }
 
-                    <li class="list-group-item">@Html.ActionLink("Se flere stemmeprøver ...", "Details", "Home", new { id = actor.ActorId }, new { @class = "btn btn-default" })</li>
-                </ul>
+
+
+                            <li class="list-group-item">
+                                <span class="glyphicon glyphicon-plus">
+                                    @Html.ActionLink(" ", "AddAudioFiles", "Home", new { id = actor.ActorId }, new { @class = "" })
+
+                                </span>
+                            </li>
+                        </ul>
                     }
                     else
                     {
                         <p>Det er ikke lagt til noen stemmeprøver.</p>
-                        <p>Legg til noen @Html.ActionLink("her.", "AddAudioFiles", new { id = actor.ActorId }) </p>
+                            <p>Legg til noen @Html.ActionLink("her.", "AddAudioFiles", new { id = actor.ActorId }) </p>
                     }
-                
 
-                <p>
-                    @Html.ActionLink("Rediger", "Edit", new { id = actor.ActorId }, new { @class = "btn btn-default" })
-                    @Html.ActionLink("Detaljer", "Details", "Home", new { id = actor.ActorId }, new { @class = "btn btn-default" })
-                    @Html.ActionLink("Legg til stemmeprøve", "AddAudioFiles", "Home", new { id = actor.ActorId }, new { @class = "btn btn-default" })
 
-                </p>
-            </div>
-        </div>
+                    <p>
+                        @*@Html.ActionLink("Rediger", "Edit", new { id = actor.ActorId }, new { @class = "btn btn-default" })*@
+                        @*@Html.ActionLink("Detaljer", "Details", "Home", new { id = actor.ActorId }, new { @class = "btn btn-default" })*@
 
-            if (counter % 3 == 0)
-            {
-                <div class="row"></div>
-            }
 
-            counter++;
+                    </p>
+                </div>
+            </a>
+        </div> @*BOXEN SLUTTER HER*@
 
+
+    if (counter % 4 == 0)
+    {
+        <div class="row"></div>
         }
-    </div>
 
+        counter++;
 
-
-    @section scripts {
-        <script>
-            $('video,audio').mediaelementplayer(
-                {
-                    audioWidth: "100%",
-                    startVolume: 0.8,
-                    pauseOtherPlayers: true,
-
-                    enableKeyboard: true
-                }
-
-                );
-        </script>
     }
+</div>
+
+
+
+@section scripts {
+    <script src="~/Scripts/bootstrap-select.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('.selectpicker').selectpicker({
+                //style: 'btn-info',
+                size: 8,
+                noneSelectedText: 'Ingen dialekt valgt ...'
+
+            });
+
+            $('video,audio').mediaelementplayer(
+            {
+                audioWidth: "100%",
+                startVolume: 0.8,
+                pauseOtherPlayers: true,
+                enableKeyboard: true
+            }
+            );
+        });
+
+
+
+        $('').on('submit', function (e) {
+            e.preventDefault();
+            //var form = $('#sortForm').serializeObject();
+            //alert("sorrrtAge");
+            $.post("sort/sortbyagerange",
+                { 'form': $("#sortForm").serialize() })
+
+
+            .done(function (data) {
+                console.log(data);
+                console.log("Success");
+                //window.location.href = "/";
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                alert("Error");
+                //alert(jqXHR.responseText || textStatus);
+                console.error(errorThrown);
+            })
+        });
+    </script>
+}
