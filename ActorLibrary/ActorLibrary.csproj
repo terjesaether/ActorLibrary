@@ -196,6 +196,18 @@
     <Compile Include="Migrations\201701120033556_ChangedToDialectNames.Designer.cs">
       <DependentUpon>201701120033556_ChangedToDialectNames.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701172133069_AddedDialectNameString.cs" />
+    <Compile Include="Migrations\201701172133069_AddedDialectNameString.Designer.cs">
+      <DependentUpon>201701172133069_AddedDialectNameString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701172157312_AddedDialectNameModel.cs" />
+    <Compile Include="Migrations\201701172157312_AddedDialectNameModel.Designer.cs">
+      <DependentUpon>201701172157312_AddedDialectNameModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701172237222_AddedActorIdToDialect.cs" />
+    <Compile Include="Migrations\201701172237222_AddedActorIdToDialect.Designer.cs">
+      <DependentUpon>201701172237222_AddedActorIdToDialect.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Actor.cs" />
@@ -495,6 +507,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701120033556_ChangedToDialectNames.resx">
       <DependentUpon>201701120033556_ChangedToDialectNames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701172133069_AddedDialectNameString.resx">
+      <DependentUpon>201701172133069_AddedDialectNameString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701172157312_AddedDialectNameModel.resx">
+      <DependentUpon>201701172157312_AddedDialectNameModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701172237222_AddedActorIdToDialect.resx">
+      <DependentUpon>201701172237222_AddedActorIdToDialect.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

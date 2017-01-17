@@ -86,7 +86,8 @@ namespace ActorLibrary.Models
 
                 var actorQuery = _db.Actors
                 .OrderByDescending(orderByFunc)
-                .Where(a => a.Dialects.Any(d => sortByDialect.Contains(d.TheDialectName.DialectListId.ToString())))
+                //.Where(a => a.Dialects.Any(d => sortByDialect.Contains(d.TheDialectName.DialectListId.ToString())))
+                .Where(a => a.Dialects.Any(d => sortByDialect.Contains(d.DialectName)))
                 .Where(a => a.Age >= fromAgeInt)
                 .Where(a => a.Age <= toAgeInt);
 
@@ -149,6 +150,7 @@ namespace ActorLibrary.Models
             return _db.Actors
                .OrderByDescending(orderByFunc)
                 .Where(a => a.Dialects.Any(d => sortByDialect.Contains(d.TheDialectName.DialectListId.ToString())))
+                //.Where(a => a.Dialects.Any(d => sortByDialect.Contains(d.DialectName)))
                 .Where(a => a.Age >= fromAgeInt)
                 .Where(a => a.Age <= toAgeInt)
                .ToList();

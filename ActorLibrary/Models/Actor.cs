@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,7 +16,7 @@ namespace ActorLibrary.Models
             Dialects = new List<Dialect>();
             AddedDate = DateTime.Now;
         }
-
+        //[DatabaseGeneratedAttribute = ]
         [Key]
         public int ActorId { get; set; }
 
@@ -159,9 +160,20 @@ namespace ActorLibrary.Models
         [Key]
         public int DialectId { get; set; }
         public virtual DialectName TheDialectName { get; set; }
-        //public int DialectListId { get; set; }
+        public string DialectName { get; set; }
+        public int ActorId { get; set; }
 
     }
+
+    //class DialectToActor
+    //{
+    //    [Key]
+    //    public int DialectToActorId { get; set; }
+    //    public int ActorId { get; set; }
+    //    public int DialectId { get; set; }
+    //    public virtual Actor Actor { get; set; }
+    //    public virtual Dialect Dialect { get; set; }
+    //}
 
 
 

@@ -20,7 +20,15 @@ namespace ActorLibrary.Models
         {
             GenderList = comOp.GetGenderList();
             DialectList = comOp.GetDialectsList();
-            //Dialects = new List<DialectName>();
+
+        }
+
+        public EditCreateViewModel(int id)
+        {
+            GenderList = comOp.GetGenderList();
+            DialectList = comOp.GetDialectsListWithActor(id);
+            //DialectList = comOp.GetDialectsList();
+
         }
         //private ActorContext _db = new ActorContext();
 
@@ -30,41 +38,6 @@ namespace ActorLibrary.Models
         //public List<DialectName> Dialects;
         public string Gender { get; set; }
         public Actor Actor { get; set; }
-
-        //public IEnumerable<SelectListItem> GetGenderItems(string value)
-        //{
-        //    if (value != null)
-        //    {
-        //        var allGenders = _db.Genders.Select(f => new SelectListItem
-        //        {
-        //            Value = f.GenderId.ToString(),
-        //            Text = f.GenderName,
-        //            Selected = f.GenderName == value
-        //        });
-
-        //        return allGenders;
-        //    }
-        //    return null;
-        //}
-
-        //public List<SelectListItem> GetGenderList()
-        //{
-        //    var all = _db.Genders.Select(f => new SelectListItem
-        //    {
-        //        Value = f.GenderId.ToString(),
-        //        Text = f.GenderName
-        //    });
-        //    return all.ToList();
-        //}
-        //public List<SelectListItem> GetDialectList()
-        //{
-        //    var all = _db.DialectNames.Select(f => new SelectListItem
-        //    {
-        //        Value = f.DialectListId.ToString(),
-        //        Text = f.DialectListName
-        //    });
-        //    return all.ToList();
-        //}
 
 
 
@@ -107,5 +80,12 @@ namespace ActorLibrary.Models
 
 
 
+    }
+
+    public class CheckBoxViewModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public bool Checked { get; set; }
     }
 }

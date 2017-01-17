@@ -141,7 +141,7 @@ namespace ActorLibrary.Controllers
             {
                 return HttpNotFound();
             }
-            var viewModel = new EditCreateViewModel();
+            var viewModel = new EditCreateViewModel(id.Value);
             viewModel.Actor = actor;
 
             var allGenders = _db.Genders.Select(f => new SelectListItem
@@ -162,6 +162,9 @@ namespace ActorLibrary.Controllers
         public ActionResult Edit(EditCreateViewModel viewModel, HttpPostedFileBase uploadImg, string[] DialectListId)
         {
             string pathToSaveImg = Server.MapPath("~" + profileImgPath);
+            var actor = viewModel.Actor;
+            int id = viewModel.Actor.ActorId;
+            Actor originalActor = _db.Actors.Find(id);
 
             if (DialectListId != null)
             {
@@ -170,29 +173,46 @@ namespace ActorLibrary.Controllers
                     var newDiaName = _db.DialectNames.Find(Convert.ToInt32(d));
                     var newDialect = new Dialect
                     {
-                        TheDialectName = newDiaName
+                        TheDialectName = newDiaName,
+                        DialectName = newDiaName.DialectListName,
+                        ActorId = id
 
                     };
-                    viewModel.Actor.Dialects.Add(newDialect);
+                    actor.Dialects.Add(newDialect);
                 }
             }
+            // Her blir dialektene oppdatert..
+            foreach (var dialect in actor.Dialects)
+            {
+                if (!originalActor.Dialects.Contains(dialect))
+                {
+                    _db.ActorDialects.Add(dialect);
+                }
+
+
+            }
+
 
             // Lagrer fil hvis det er lastet inn en fil:
             if (uploadImg != null && uploadImg.ContentLength > 0)
             {
-                viewModel.Actor = fileOperations.SaveAndUploadImage(uploadImg, viewModel.Actor);
+                actor = fileOperations.SaveAndUploadImage(uploadImg, viewModel.Actor);
             }
+
 
             try
             {
 
-                _db.Entry(viewModel.Actor).State = System.Data.Entity.EntityState.Modified;
+
+                //_db.Entry(actor).State = System.Data.Entity.EntityState.Modified;
+
                 _db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
+                ViewBag.Message = e.Message;
                 return View(viewModel);
             }
         }
@@ -247,7 +267,8 @@ namespace ActorLibrary.Controllers
                             var newDiaName = _db.DialectNames.Find(Convert.ToInt32(d));
                             var newDialect = new Dialect
                             {
-                                TheDialectName = newDiaName
+                                //TheDialectName = newDiaName
+                                DialectName = newDiaName.DialectListName
                             };
                             actor.Dialects.Add(newDialect);
 

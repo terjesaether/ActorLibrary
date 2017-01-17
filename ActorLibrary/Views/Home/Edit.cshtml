@@ -10,6 +10,8 @@
 
 <h2>Rediger @Model.Actor.FullName</h2>
 
+<h2>@ViewBag.Message</h2>
+
 
 @using (Html.BeginForm("Edit", "Home", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -94,7 +96,7 @@
                 @Html.DropDownList("DialectListId", Model.DialectList, null, new { @class = "form-control selectpicker", multiple = true, id = "#dialectPicker" })
                 @foreach (var d in Model.Actor.Dialects)
                 {
-                    <p>@d.TheDialectName.DialectListName</p>
+                    <p>@d.DialectName</p>
                 }
             </div>
             <div>

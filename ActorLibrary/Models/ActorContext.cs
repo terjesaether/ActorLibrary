@@ -26,5 +26,19 @@ namespace ActorLibrary.Models
         //public DbSet<AgeRanges> AgeRanges { get; set; }
         public DbSet<DialectName> DialectNames { get; set; }
         public DbSet<Dialect> ActorDialects { get; set; }
+
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+
+            modelBuilder.Entity<Actor>()
+                .HasMany(t => t.Dialects);
+
+            base.OnModelCreating(modelBuilder);
+        }
+
     }
+
+
+
 }

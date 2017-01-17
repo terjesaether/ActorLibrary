@@ -24,6 +24,27 @@ namespace ActorLibrary.Models
             return selectList;
         }
 
+        public List<SelectListItem> GetDialectsListWithActor(int actorId)
+        {
+
+            var actor = _db.Actors.Find(actorId);
+
+            List<DialectName> allDialectNames = _db.DialectNames.ToList();
+
+            List<SelectListItem> selectList = new List<SelectListItem>();
+
+            foreach (var item in allDialectNames)
+            {
+                if (!actor.Dialects.Any(d => d.DialectName == item.DialectListName))
+                //.Where(a => a.Dialects.Any(d => sortByDialect.Contains(d.DialectName)))
+                {
+                    selectList.Add(new SelectListItem { Text = item.DialectListName, Value = item.DialectListId.ToString() });
+                }
+
+            }
+            return selectList;
+        }
+
         public List<SelectListItem> GetSortedbyList()
         {
             List<SelectListItem> sortByList = new List<SelectListItem>

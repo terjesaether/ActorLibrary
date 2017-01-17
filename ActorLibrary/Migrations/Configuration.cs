@@ -84,63 +84,26 @@ namespace ActorLibrary.Migrations
                 }
                 );
 
-            context.DialectNames.AddOrUpdate(
-                d => d.DialectListId,
-                new DialectName
-                {
-                    DialectListName = "Østlending"
-                },
-                new DialectName
-                {
-                    DialectListName = "Vestlending"
-                },
-                new DialectName
-                {
-                    DialectListName = "Nordlending"
-                },
-                new DialectName
-                {
-                    DialectListName = "Sørlending"
-                }
-                );
-            //context.AgeRanges.AddOrUpdate(
-            //    a => a.AgeRange,
-            //    new AgeRanges
+            //context.DialectNames.AddOrUpdate(
+            //    d => d.DialectListId,
+            //    new DialectName
             //    {
-            //        FromAge = 6,
-            //        ToAge = 10
+            //        DialectListName = "Østlending"
             //    },
-            //    new AgeRanges
+            //    new DialectName
             //    {
-            //        FromAge = 11,
-            //        ToAge = 14
+            //        DialectListName = "Vestlending"
             //    },
-            //    new AgeRanges
+            //    new DialectName
             //    {
-            //        FromAge = 15,
-            //        ToAge = 18
+            //        DialectListName = "Nordlending"
             //    },
-            //    new AgeRanges
+            //    new DialectName
             //    {
-            //        FromAge = 19,
-            //        ToAge = 25
-            //    },
-            //    new AgeRanges
-            //    {
-            //        FromAge = 26,
-            //        ToAge = 50
-            //    },
-            //    new AgeRanges
-            //    {
-            //        FromAge = 51,
-            //        ToAge = 60
-            //    },
-            //    new AgeRanges
-            //    {
-            //        FromAge = 61,
-            //        ToAge = 100
+            //        DialectListName = "Sørlending"
             //    }
             //    );
+
 
 
         }
