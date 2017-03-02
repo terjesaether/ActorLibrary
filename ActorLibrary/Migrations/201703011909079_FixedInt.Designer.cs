@@ -7,13 +7,13 @@ namespace ActorLibrary.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddedDialectNameModel : IMigrationMetadata
+    public sealed partial class FixedInt : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedDialectNameModel));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(FixedInt));
         
         string IMigrationMetadata.Id
         {
-            get { return "201701172157312_AddedDialectNameModel"; }
+            get { return "201703011909079_FixedInt"; }
         }
         
         string IMigrationMetadata.Source

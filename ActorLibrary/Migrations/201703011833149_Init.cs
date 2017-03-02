@@ -12,12 +12,25 @@ namespace ActorLibrary.Migrations
                 c => new
                     {
                         DialectId = c.Int(nullable: false, identity: true),
-                        DialectListId = c.Int(nullable: false),
-                        Actor_ActorId = c.Int(),
+                        DialectName = c.String(),
+                        ActorId = c.Int(nullable: false),
+                        DialectListId = c.String(),
+                        TheDialectName_DialectListId = c.Int(),
                     })
                 .PrimaryKey(t => t.DialectId)
-                .ForeignKey("dbo.Actors", t => t.Actor_ActorId)
-                .Index(t => t.Actor_ActorId);
+                .ForeignKey("dbo.DialectNames", t => t.TheDialectName_DialectListId)
+                .ForeignKey("dbo.Actors", t => t.ActorId, cascadeDelete: true)
+                .Index(t => t.ActorId)
+                .Index(t => t.TheDialectName_DialectListId);
+            
+            CreateTable(
+                "dbo.DialectNames",
+                c => new
+                    {
+                        DialectListId = c.Int(nullable: false, identity: true),
+                        DialectListName = c.String(),
+                    })
+                .PrimaryKey(t => t.DialectListId);
             
             CreateTable(
                 "dbo.Actors",
@@ -45,20 +58,11 @@ namespace ActorLibrary.Migrations
                         VoiceTestTitle = c.String(),
                         Comment = c.String(),
                         VoiceTestUrl = c.String(),
-                        Actor_ActorId = c.Int(),
+                        ActorId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.VoiceTestId)
-                .ForeignKey("dbo.Actors", t => t.Actor_ActorId)
-                .Index(t => t.Actor_ActorId);
-            
-            CreateTable(
-                "dbo.DialectNames",
-                c => new
-                    {
-                        DialectListId = c.Int(nullable: false, identity: true),
-                        DialectListName = c.String(),
-                    })
-                .PrimaryKey(t => t.DialectListId);
+                .ForeignKey("dbo.Actors", t => t.ActorId, cascadeDelete: true)
+                .Index(t => t.ActorId);
             
             CreateTable(
                 "dbo.Genders",
@@ -73,14 +77,16 @@ namespace ActorLibrary.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.VoiceTests", "Actor_ActorId", "dbo.Actors");
-            DropForeignKey("dbo.Dialects", "Actor_ActorId", "dbo.Actors");
-            DropIndex("dbo.VoiceTests", new[] { "Actor_ActorId" });
-            DropIndex("dbo.Dialects", new[] { "Actor_ActorId" });
+            DropForeignKey("dbo.VoiceTests", "ActorId", "dbo.Actors");
+            DropForeignKey("dbo.Dialects", "ActorId", "dbo.Actors");
+            DropForeignKey("dbo.Dialects", "TheDialectName_DialectListId", "dbo.DialectNames");
+            DropIndex("dbo.VoiceTests", new[] { "ActorId" });
+            DropIndex("dbo.Dialects", new[] { "TheDialectName_DialectListId" });
+            DropIndex("dbo.Dialects", new[] { "ActorId" });
             DropTable("dbo.Genders");
-            DropTable("dbo.DialectNames");
             DropTable("dbo.VoiceTests");
             DropTable("dbo.Actors");
+            DropTable("dbo.DialectNames");
             DropTable("dbo.Dialects");
         }
     }

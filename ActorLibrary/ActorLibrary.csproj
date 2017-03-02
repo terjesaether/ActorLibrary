@@ -188,25 +188,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701120029365_Init.cs" />
-    <Compile Include="Migrations\201701120029365_Init.Designer.cs">
-      <DependentUpon>201701120029365_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201703011833149_Init.cs" />
+    <Compile Include="Migrations\201703011833149_Init.Designer.cs">
+      <DependentUpon>201703011833149_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701120033556_ChangedToDialectNames.cs" />
-    <Compile Include="Migrations\201701120033556_ChangedToDialectNames.Designer.cs">
-      <DependentUpon>201701120033556_ChangedToDialectNames.cs</DependentUpon>
+    <Compile Include="Migrations\201703011837274_FixedDialectListIdString.cs" />
+    <Compile Include="Migrations\201703011837274_FixedDialectListIdString.Designer.cs">
+      <DependentUpon>201703011837274_FixedDialectListIdString.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701172133069_AddedDialectNameString.cs" />
-    <Compile Include="Migrations\201701172133069_AddedDialectNameString.Designer.cs">
-      <DependentUpon>201701172133069_AddedDialectNameString.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701172157312_AddedDialectNameModel.cs" />
-    <Compile Include="Migrations\201701172157312_AddedDialectNameModel.Designer.cs">
-      <DependentUpon>201701172157312_AddedDialectNameModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701172237222_AddedActorIdToDialect.cs" />
-    <Compile Include="Migrations\201701172237222_AddedActorIdToDialect.Designer.cs">
-      <DependentUpon>201701172237222_AddedActorIdToDialect.cs</DependentUpon>
+    <Compile Include="Migrations\201703011909079_FixedInt.cs" />
+    <Compile Include="Migrations\201703011909079_FixedInt.Designer.cs">
+      <DependentUpon>201703011909079_FixedInt.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -214,6 +206,7 @@
     <Compile Include="Models\ActorContext.cs" />
     <Compile Include="Models\CommonOperations.cs" />
     <Compile Include="Models\ActorRepository.cs" />
+    <Compile Include="Models\Dialect.cs" />
     <Compile Include="Models\ExtensionMethods.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -315,16 +308,17 @@
     <Content Include="Images\profiles\profile__sigbjørn _solheim_22.jpg" />
     <Content Include="Images\profiles\profile__sigbjørn_solheim_0.jpg" />
     <Content Include="Images\profiles\profile__terje_sæther_21.jpg" />
-    <Content Include="Images\WallImages\imagepath\la-fi-hy-ducati-2015-scrambler-20140924.jpg" />
     <Content Include="Scripts\AudioPlayerFix.js" />
     <Content Include="Scripts\bootstrap-select.js" />
     <Content Include="Scripts\bootstrap-select.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\bootstrap-select.css.map" />
+    <None Include="Properties\PublishProfiles\archive.terjesaether.com - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\archive.terjesaether.com.pubxml" />
     <None Include="Properties\PublishProfiles\dubbing.terjesaether.com - Web Deploy.pubxml" />
     <Content Include="Scripts\bootstrap-select.js.map" />
+    <Content Include="Scripts\custom\playOnlyOneAudio.js" />
     <Content Include="Scripts\dropzone\basic.css" />
     <Content Include="Scripts\dropzone\basic.min.css" />
     <Content Include="Scripts\dropzone\dropzone-amd-module.js" />
@@ -489,6 +483,8 @@
     <Content Include="Views\Home\AddAudioFiles.cshtml" />
     <Content Include="Views\Home\AddFilesDropzone.cshtml" />
     <Content Include="Views\Actor\EditDialect.cshtml" />
+    <Content Include="Views\Home\_DetailsModal.cshtml" />
+    <Content Include="Views\Home\EditVoiceTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -502,20 +498,14 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701120029365_Init.resx">
-      <DependentUpon>201701120029365_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703011833149_Init.resx">
+      <DependentUpon>201703011833149_Init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701120033556_ChangedToDialectNames.resx">
-      <DependentUpon>201701120033556_ChangedToDialectNames.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703011837274_FixedDialectListIdString.resx">
+      <DependentUpon>201703011837274_FixedDialectListIdString.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701172133069_AddedDialectNameString.resx">
-      <DependentUpon>201701172133069_AddedDialectNameString.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701172157312_AddedDialectNameModel.resx">
-      <DependentUpon>201701172157312_AddedDialectNameModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701172237222_AddedActorIdToDialect.resx">
-      <DependentUpon>201701172237222_AddedActorIdToDialect.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703011909079_FixedInt.resx">
+      <DependentUpon>201703011909079_FixedInt.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

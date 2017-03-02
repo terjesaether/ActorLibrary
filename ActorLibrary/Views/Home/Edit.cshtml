@@ -8,7 +8,13 @@
     @Styles.Render("~/Content/jqueryuicss")
 }
 
-<h2>Rediger @Model.Actor.FullName</h2>
+<h2>
+    Rediger @Model.Actor.FullName
+    &nbsp;
+    @Html.ActionLink("Legg til stemmeprøver", "AddAudioFiles", new { id = Model.Actor.ActorId }, new { @class = "btn btn-info" })
+    @Html.ActionLink("Tilbake til " + Model.Actor.FullName, "Details", new { id = Model.Actor.ActorId }, new { @class = "btn btn-warning" })
+    
+</h2>
 
 <h2>@ViewBag.Message</h2>
 
@@ -76,7 +82,7 @@
             </div>
 
             <div class="col-md-4 col-md-push-2">
-                <img src="@Model.Actor.ImgUrl" alt="@Model.Actor.FullName" class="img-responsive img-rounded" />
+                <img src="@Model.Actor.ImgUrl" alt="@Model.Actor.FullName" id="output" class="img-responsive img-rounded" />
             </div>
 
             </div>
@@ -84,52 +90,47 @@
         <div class="form-group">
             @Html.Label("Velg bilde", new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                <input class="btn btn-default" type="file" id="ProfileImage" name="uploadImg" />
+                <input class="btn btn-default" type="file" id="ProfileImage" name="uploadImg" onchange="loadFile(event)" />
                 @Html.HiddenFor(model => model.Actor.ImgUrl)
+               
             </div>
-            @*<div>
-
-            </div>*@
+            
 
             @Html.Label("Velg dialekt", new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.DropDownList("DialectListId", Model.DialectList, null, new { @class = "form-control selectpicker", multiple = true, id = "#dialectPicker" })
-                @foreach (var d in Model.Actor.Dialects)
-                {
-                    <p>@d.DialectName</p>
-                }
-            </div>
-            <div>
-                
-            </div>
+                @*@Html.DropDownList("DialectListId", Model.DialectList, null, new { @class = "form-control selectpicker", multiple = true, id = "#dialectPicker" })*@
 
+                @Html.DropDownList("DialectListId", null, "Velg dialekt ...", htmlAttributes: new { @class = "form-control selectpicker", multiple = true })
+
+                <p>@Model.ActorDialects</p>
+            </div>
+            
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Actor.ActorGenderId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Actor.ActorGenderId, Model.GenderList, new { @class = "form-control" })
-               
+                @*@Html.DropDownListFor(model => model.Actor.ActorGenderId, Model.GenderList, new { @class = "form-control" })*@
+               @Html.DropDownList("ActorGenderId", null, "Velg kjønn ...", htmlAttributes: new { @class = "form-control" })
                 
             </div>
             
         </div>
 
-        <div class="form-group pull-right">
+        <div class="form-group">
             
-            <div class="col-md-offset-8 col-md-4 btn-group">
-                <a href="/" class="btn btn-default">Avbryt</a>
-                <input type="submit" value="Lagre" class="btn btn-success" />
+            <div class="col-md-12 btn-group push-right">
+                <a href="/" class="btn btn-default">Avbryt</a>              
                 @Html.ActionLink("Legg til stemmeprøver", "AddAudioFiles", new { id = Model.Actor.ActorId }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Tilbake til " + Model.Actor.FullName, "Details", new { id = Model.Actor.ActorId }, new { @class = "btn btn-warning" })
+                <input type="submit" value="Lagre" class="btn btn-success" />
                 
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Tilbake til " + Model.Actor.FullName, "Details", new { id = Model.Actor.ActorId })
-</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
@@ -142,7 +143,7 @@
             //style: 'btn-info',
             //size: 4,
             noneSelectedText: 'Ingen dialekt er valgt!',
-            title: 'Velg dialekt:'
+            title: 'Velg dialæækt:'
         });
 
         $("#datepicker").datepicker({
@@ -150,6 +151,11 @@
             dateFormat: "yy-mm-dd"
         });
     });
+
+    var loadFile = function (event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+    };
 
 </script>
 }

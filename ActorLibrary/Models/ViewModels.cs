@@ -15,31 +15,30 @@ namespace ActorLibrary.Models
 
     public class EditCreateViewModel
     {
-        CommonOperations comOp = new CommonOperations();
+        private CommonOperations comOp = new CommonOperations();
         public EditCreateViewModel()
         {
-            GenderList = comOp.GetGenderList();
-            DialectList = comOp.GetDialectsList();
+            //GenderList = comOp.GetGenderList();            
 
         }
 
         public EditCreateViewModel(int id)
         {
-            GenderList = comOp.GetGenderList();
-            DialectList = comOp.GetDialectsListWithActor(id);
-            //DialectList = comOp.GetDialectsList();
+            GenderList = comOp.GetGenderSelectList(id);
+            DialectList = comOp.GetDialectsSelectList(id);
+            ActorDialects = comOp.PrintActorsDialects(id);
+
 
         }
         //private ActorContext _db = new ActorContext();
 
-        public List<SelectListItem> GenderList { get; set; }
-        public List<SelectListItem> DialectList { get; set; }
+        public IEnumerable<SelectListItem> GenderList { get; set; }
+        public IEnumerable<SelectListItem> DialectList { get; set; }
 
-        //public List<DialectName> Dialects;
         public string Gender { get; set; }
         public Actor Actor { get; set; }
 
-
+        public string ActorDialects;
 
         //public  CheckImagePath(HttpPostedFileBase uploadImg)
         //{
@@ -58,15 +57,17 @@ namespace ActorLibrary.Models
     }
     public class ActorViewModel
     {
-        Models.CommonOperations comOp = new Models.CommonOperations();
-        public ActorViewModel()
+        CommonOperations comOp = new CommonOperations();
+        public ActorViewModel(int id)
         {
-
+            ActorDialects = comOp.PrintActorsDialects(id);
         }
         public Actor Actor { get; set; }
         public Gender Gender { get; set; }
 
-        public List<SelectListItem> dialectList;
+        public string ActorDialects;
+
+        public IEnumerable<SelectListItem> dialectList;
 
         //private List<SelectListItem> _ageRangeList;
         //public List<SelectListItem> ageRangeList

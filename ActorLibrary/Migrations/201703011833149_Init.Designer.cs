@@ -13,7 +13,7 @@ namespace ActorLibrary.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201701120029365_Init"; }
+            get { return "201703011833149_Init"; }
         }
         
         string IMigrationMetadata.Source

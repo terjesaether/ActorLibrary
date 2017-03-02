@@ -25,11 +25,11 @@ namespace ActorLibrary.Migrations
               p => p.FirstName,
               new Actor
               {
-                  FirstName = "Andrew",
-                  LastName = "Nilsen",
+                  FirstName = "Sigbjørn",
+                  LastName = "Solheim",
                   Address = "Oslogate 2",
                   ImgUrl = "/Images/profiles/profile_andrew_nilsen.jpg",
-                  ActorGenderId = "2",
+                  ActorGenderId = 2,
                   BirthDate = DateTime.Parse("1955-06-16 00:00:00.000"),
                   VoiceTests = new List<VoiceTest>
                   {
@@ -43,7 +43,7 @@ namespace ActorLibrary.Migrations
                   FirstName = "Erik",
                   LastName = "Skøld",
                   ImgUrl = "/Images/profiles/profile_2.jpg",
-                  ActorGenderId = "2",
+                  ActorGenderId = 2,
                   BirthDate = DateTime.Parse("1988-06-16 00:00:00.000"),
                   VoiceTests = new List<VoiceTest>
                   {
@@ -58,7 +58,7 @@ namespace ActorLibrary.Migrations
                   FirstName = "Anderz",
                   LastName = "Eide",
                   ImgUrl = "/Images/profiles/profile_erik_skold.jpg",
-                  ActorGenderId = "2",
+                  ActorGenderId = 2,
                   BirthDate = DateTime.Parse("2000-06-16 00:00:00.000"),
                   VoiceTests = new List<VoiceTest>
                   {
@@ -68,21 +68,21 @@ namespace ActorLibrary.Migrations
               }
             );
 
-            context.Genders.AddOrUpdate(
-                g => g.GenderId,
-                new Gender
-                {
-                    GenderName = "Both"
-                },
-                new Gender
-                {
-                    GenderName = "Mannlig"
-                },
-                new Gender
-                {
-                    GenderName = "Female"
-                }
-                );
+            //context.Genders.AddOrUpdate(
+            //    g => g.GenderId,
+            //    new Gender
+            //    {
+            //        GenderName = "Both"
+            //    },
+            //    new Gender
+            //    {
+            //        GenderName = "Mannlig"
+            //    },
+            //    new Gender
+            //    {
+            //        GenderName = "Female"
+            //    }
+            //    );
 
             //context.DialectNames.AddOrUpdate(
             //    d => d.DialectListId,
@@ -97,6 +97,10 @@ namespace ActorLibrary.Migrations
             //    new DialectName
             //    {
             //        DialectListName = "Nordlending"
+            //    },
+            //    new DialectName
+            //    {
+            //        DialectListName = "Trønder"
             //    },
             //    new DialectName
             //    {

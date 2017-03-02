@@ -2,25 +2,27 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
-//using System.Web.Http;
+
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
 namespace ActorLibrary.Controllers
 {
+    //[Authorize]
     public class HomeController : Controller
     {
         private ActorContext _db = new ActorContext();
 
-        CommonOperations comOp = new CommonOperations();
-        SortingOperations sortOp = new SortingOperations();
-        ActorRepository actorRepo = new ActorRepository();
-        UploadFileOperations fileOperations = new UploadFileOperations();
+        private CommonOperations comOp = new CommonOperations();
+        private SortingOperations sortOp = new SortingOperations();
+        private ActorRepository actorRepo = new ActorRepository();
+        private UploadFileOperations fileOperations = new UploadFileOperations();
 
         string profileImgPath = "/Images/profiles/";
 
@@ -37,18 +39,18 @@ namespace ActorLibrary.Controllers
         }
 
 
-        [HttpPost]
-        public ActionResult Index(string sortBy)
-        {
+        //[HttpPost]
+        //public ActionResult Index(string sortBy)
+        //{
 
-            //ViewBag.sortList = comOp.GetSortedbyList();
-            //ViewBag.dialectsList = comOp.GetDialectsList();
-            //ViewBag.genderList = comOp.GetGenderList();
-            //ViewBag.agesList = comOp.GetAgeDefinitonsList();
+        //    //ViewBag.sortList = comOp.GetSortedbyList();
+        //    //ViewBag.dialectsList = comOp.GetDialectsList();
+        //    //ViewBag.genderList = comOp.GetGenderList();
+        //    //ViewBag.agesList = comOp.GetAgeDefinitonsList();
 
-            //return View(sortOp.SortBy(sortBy));
-            return View();
-        }
+        //    //return View(sortOp.SortBy(sortBy));
+        //    return View();
+        //}
 
         [Route("Home/Sort")]
         public ActionResult SortTheActors(string sortBy, string fromAge, string toAge, string[] sortByDialect, string sortByGender, string sortByAgeDefinition)
@@ -75,13 +77,11 @@ namespace ActorLibrary.Controllers
         public ActionResult Details(int? id)
         {
             var actor = _db.Actors.Find(id.Value);
-            var viewModel = new ActorViewModel
-            {
-                Actor = actor
-            };
+            var viewModel = new ActorViewModel(id.Value);
+            viewModel.Actor = actor;
 
-            var allGenders = _db.Genders.ToList();
-            var gender = allGenders.First(g => g.GenderId == Convert.ToInt32(actor.ActorGenderId));
+            //var allGenders = _db.Genders.ToList();
+            var gender = _db.Genders.FirstOrDefault(g => g.GenderId == actor.ActorGenderId);
 
             ViewBag.GenderName = gender.GenderName;
             return View(viewModel);
@@ -108,12 +108,12 @@ namespace ActorLibrary.Controllers
 
             if (actors.Count() == 0)
             {
-                ViewBag.SearchMessage = "Ingen resultater";
+                ViewBag.SearchMessage = "Ingen resultater ...";
             }
 
             foreach (var actor in result)
             {
-                if (!string.IsNullOrEmpty(actor.ActorGenderId))
+                if (actor.ActorGenderId > 0)
                 {
                     var gender = allGenders.First(g => g.GenderId == Convert.ToInt32(actor.ActorGenderId));
                     genderNames.Add(gender.GenderName);
@@ -134,8 +134,8 @@ namespace ActorLibrary.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
             }
+
             var actor = _db.Actors.Find(id.Value);
             if (actor == null)
             {
@@ -144,27 +144,77 @@ namespace ActorLibrary.Controllers
             var viewModel = new EditCreateViewModel(id.Value);
             viewModel.Actor = actor;
 
-            var allGenders = _db.Genders.Select(f => new SelectListItem
-            {
-                Value = f.GenderId.ToString(),
-                Text = f.GenderName,
-                Selected = f.GenderName == viewModel.Actor.ActorGenderId
-            });
+            //var allGenders = _db.Genders.Select(f => new SelectListItem
+            //{
+            //    Value = f.GenderId.ToString(),
+            //    Text = f.GenderName,
+            //    Selected = f.GenderName == viewModel.Actor.ActorGenderId
+            //});
 
-            //ViewBag.Dialects = actorRepo.GetDialectNames(actor);
-            viewModel.GenderList = allGenders.ToList();
+            //viewModel.GenderList = allGenders.ToList();
+
+            //var allDialects = _db.DialectNames
+            //    .Select(s => new
+            //    {
+            //        s.DialectListName,
+            //        s.DialectListId,
+            //        Selected = _db.ActorDialects.Where(d => d.ActorId == id.Value && d.DialectListId == s.DialectListId)
+            //        .Count() > 0
+            //    })
+            //    .ToList();
+
+            //var dialectDropDown = new List<SelectListItem>();
+            //foreach (var item in allDialects)
+            //{
+            //    dialectDropDown.Add(new SelectListItem
+            //    {
+            //        Text = item.DialectListName.ToString(),
+            //        Value = item.DialectListId.ToString(),
+            //        Selected = item.Selected
+            //    });
+
+            //}
+
+            ViewBag.DialectListId = viewModel.DialectList;
+            ViewBag.ActorGenderId = viewModel.GenderList;
 
             return View(viewModel);
         }
 
         // POST: Actor/Edit/5
         [HttpPost]
-        public ActionResult Edit(EditCreateViewModel viewModel, HttpPostedFileBase uploadImg, string[] DialectListId)
+        public ActionResult Edit(EditCreateViewModel viewModel, HttpPostedFileBase uploadImg, string[] DialectListId, string ActorGenderId)
         {
             string pathToSaveImg = Server.MapPath("~" + profileImgPath);
-            var actor = viewModel.Actor;
+
+            //var actor = viewModel.Actor;
             int id = viewModel.Actor.ActorId;
-            Actor originalActor = _db.Actors.Find(id);
+            Actor actor = _db.Actors.Find(id);
+
+            actor.FirstName = viewModel.Actor.FirstName;
+            actor.LastName = viewModel.Actor.LastName;
+            actor.Mail = viewModel.Actor.Mail;
+            actor.Phone = viewModel.Actor.Phone;
+            actor.BirthDate = viewModel.Actor.BirthDate;
+
+            actor.Dialects.Clear();
+
+            if (string.IsNullOrEmpty(ActorGenderId))
+            {
+                ActorGenderId = "1";
+            }
+            else
+            {
+                actor.ActorGenderId = int.Parse(ActorGenderId);
+            }
+
+            foreach (var item in _db.ActorDialects)
+            {
+                if (item.ActorId == id)
+                {
+                    _db.Entry(item).State = EntityState.Deleted;
+                }
+            }
 
             if (DialectListId != null)
             {
@@ -175,37 +225,28 @@ namespace ActorLibrary.Controllers
                     {
                         TheDialectName = newDiaName,
                         DialectName = newDiaName.DialectListName,
+                        DialectListId = newDiaName.DialectListId,
                         ActorId = id
 
                     };
                     actor.Dialects.Add(newDialect);
+                    _db.ActorDialects.Add(newDialect);
                 }
             }
-            // Her blir dialektene oppdatert..
-            foreach (var dialect in actor.Dialects)
-            {
-                if (!originalActor.Dialects.Contains(dialect))
-                {
-                    _db.ActorDialects.Add(dialect);
-                }
+            //Her blir dialektene oppdatert..
 
-
-            }
-
+            //_db.SaveChanges();
 
             // Lagrer fil hvis det er lastet inn en fil:
             if (uploadImg != null && uploadImg.ContentLength > 0)
             {
-                actor = fileOperations.SaveAndUploadImage(uploadImg, viewModel.Actor);
+                actor.ImgUrl = fileOperations.SaveAndUploadImage(uploadImg, viewModel.Actor, profileImgPath);
             }
-
 
             try
             {
 
-
-                //_db.Entry(actor).State = System.Data.Entity.EntityState.Modified;
-
+                _db.Entry(actor).State = EntityState.Modified;
                 _db.SaveChanges();
 
                 return RedirectToAction("Index");
@@ -213,7 +254,7 @@ namespace ActorLibrary.Controllers
             catch (Exception e)
             {
                 ViewBag.Message = e.Message;
-                return View(viewModel);
+                return RedirectToAction("Edit");
             }
         }
 
@@ -222,6 +263,9 @@ namespace ActorLibrary.Controllers
         {
             var viewModel = new EditCreateViewModel();
 
+            ViewBag.ActorGenderId = new SelectList(_db.Genders, "GenderId", "GenderName");
+            ViewBag.DialectListId = new SelectList(_db.DialectNames, "DialectListId", "DialectListName");
+
             return View(viewModel);
         }
 
@@ -229,73 +273,74 @@ namespace ActorLibrary.Controllers
         [HttpPost]
         [ActionName("Create")]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateActor([Bind(Include = "LastName, FirstName, Address, Phone, Mail, Comment, BirthDate")]Actor actor, string ActorGenderId, string audioTitle, string comment, HttpPostedFileBase uploadAudio, HttpPostedFileBase uploadImg, string[] DialectListId)
+
+        public ActionResult CreateActor(EditCreateViewModel viewModel, HttpPostedFileBase uploadAudio, HttpPostedFileBase uploadImg, string audioTitle, string ActorGenderId)
         {
 
-            try
+
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+
+                Actor actor = viewModel.Actor;
+
+                var comment = actor.Comment;
+                var vt = new VoiceTest();
+                //string pathToSaveAudio = Server.MapPath("~/audio/");
+                //string pathToSaveImg = Server.MapPath("~/img/");
+
+                if (string.IsNullOrEmpty(ActorGenderId))
                 {
-                    //string pathToSaveAudio = Server.MapPath("~/audio/");
-                    //string pathToSaveImg = Server.MapPath("~/img/");
-                    var vt = new VoiceTest();
+                    actor.ActorGenderId = 1;
+                }
+                else
+                {
+                    actor.ActorGenderId = int.Parse(ActorGenderId);
+                }
 
-                    if (uploadImg != null && uploadImg.ContentLength > 0)
-                    {
-                        // TO-DO Sjekk for identisk navn
+                if (uploadImg != null && uploadImg.ContentLength > 0)
+                {
+                    // TO-DO Sjekk for identisk navn
 
-                        actor = fileOperations.SaveAndUploadImage(uploadImg, actor);
-                    }
+                    actor.ImgUrl = fileOperations.SaveAndUploadImage(uploadImg, actor, profileImgPath);
+                }
+                else
+                {
+                    actor.ImgUrl = profileImgPath + "default_profile.jpg";
+                }
 
-                    if (uploadAudio != null && uploadAudio.ContentLength > 0)
-                    {
-                        // TO-DO Sjekk for identisk navn
+                if (uploadAudio != null && uploadAudio.ContentLength > 0)
+                {
+                    // TO-DO Sjekk for identisk navn
 
-                        actor = fileOperations.SaveAndUploadAudio(actor, vt, comment, audioTitle, uploadAudio);
-                    }
+                    actor = fileOperations.SaveAndUploadAudio(actor, vt, comment, audioTitle, uploadAudio);
+                }
 
-                    if (string.IsNullOrEmpty(ActorGenderId))
-                    {
-                        //var findGender = _db.Genders.Find(Convert.ToInt32(ActorGenderId));
-                        actor.ActorGenderId = "4";
-                    }
 
-                    if (DialectListId != null)
-                    {
-                        foreach (var d in DialectListId)
-                        {
-                            var newDiaName = _db.DialectNames.Find(Convert.ToInt32(d));
-                            var newDialect = new Dialect
-                            {
-                                //TheDialectName = newDiaName
-                                DialectName = newDiaName.DialectListName
-                            };
-                            actor.Dialects.Add(newDialect);
-
-                        }
-                    }
-
-                    actor.ActorGenderId = ActorGenderId;
-
+                try
+                {
                     _db.Actors.Add(actor);
                     _db.SaveChanges();
-                    return RedirectToAction("Index", "Home", null);
+                    return RedirectToAction("Index", "Home");
                 }
+                catch (Exception e)
+                {
+
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator." + e);
+                }
+
             }
-            catch (RetryLimitExceededException /* dex */)
-            {
-                //Log the error (uncomment dex variable name and add a line here to write a log.
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-            }
-            return View(actor);
+
+            return RedirectToAction("Create");
+
         }
 
-
+        [HttpGet]
+        //[Route("home/franklin/{id}")]
         public ActionResult AddAudioFiles(int? id)
         {
             if (id == null)
             {
-
                 return HttpNotFound();
                 //return View("Index");
             }
@@ -330,11 +375,59 @@ namespace ActorLibrary.Controllers
 
             return View(actor);
         }
+        [HttpGet]
+        public ActionResult EditVoiceTest(int id)
+        {
+            if (id == 0)
+            {
+                return HttpNotFound();
+            }
+            var voiceTest = _db.VoiceTests.Find(id);
+
+            ViewBag.ActorId = new SelectList(_db.Actors, "ActorId", "FullName");
+            ViewBag.ActorName = _db.Actors.Find(voiceTest.ActorId).FullName;
+
+            return View(voiceTest);
+        }
+
+        [HttpPost]
+        public ActionResult EditVoiceTest(VoiceTest voiceTest, HttpPostedFileBase audioFile, string ActorId)
+        {
+
+            var actor = _db.Actors.Find(int.Parse(ActorId));
+
+            if (audioFile != null)
+            {
+                if ((audioFile.ContentType != "audio/mp3" || audioFile.ContentType != "audio/mpeg") && audioFile.ContentLength > 100000000)
+                {
+                    ViewBag.Error = "Feil filtype eller for stor fil";
+                    return View(voiceTest);
+                }
+                else
+                {
+                    //actor = fileOperations.SaveAndUploadAudio(actor, vt, title, comment, audioFile);
+                    voiceTest.VoiceTestUrl = fileOperations.SaveAndUploadVoiceTest(actor, voiceTest, audioFile);
+                }
+            }
+
+
+            if (voiceTest.VoiceTestUrl != "false")
+            {
+                _db.Entry(voiceTest).State = EntityState.Modified;
+                _db.SaveChanges();
+
+                return RedirectToAction("AddAudioFiles", new { id = actor.ActorId });
+            }
+
+            return View(voiceTest);
+        }
 
 
         [HttpPost]
+        [Route("home/delete/{id}")]
         public ActionResult Delete(int? id, bool? saveChangesError = false)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -347,7 +440,24 @@ namespace ActorLibrary.Controllers
 
             try
             {
+                // Slette dialekter og stemmerprøver først
+
+                var dialects = _db.ActorDialects.Where(d => d.ActorId == id.Value).ToList();
+                var voiceTests = _db.VoiceTests.Where(v => v.ActorId == id.Value).ToList();
+
                 var actor = _db.Actors.Find(id.Value);
+
+                foreach (var dialect in dialects)
+                {
+                    _db.ActorDialects.Remove(dialect);
+                }
+
+                foreach (var vt in voiceTests)
+                {
+                    _db.VoiceTests.Remove(vt);
+                }
+
+
                 _db.Actors.Remove(actor);
                 _db.SaveChanges();
                 return Json(new { ok = true, newurl = Url.Action("Index") });
@@ -359,6 +469,14 @@ namespace ActorLibrary.Controllers
                 return Json(new { ok = false, message = ex.Message });
             }
 
+
+        }
+
+        [HttpGet]
+        public ActionResult DetailModal(int id)
+        {
+            var actor = _db.Actors.Find(id);
+            return PartialView("_DetailsModal", actor);
 
         }
 

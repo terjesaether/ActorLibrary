@@ -1,0 +1,39 @@
+﻿@model ActorLibrary.Models.Actor
+
+
+
+@*MODAL*@
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="row">
+            <div class="col-md-8"><h4 class="modal-title">@Model.FullName</h4></div>
+            <div class="col-md-2 pull-right">
+                <img class="img-responsive" src="@Model.ImgUrl" alt="Profile picture" />
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-body">
+
+        <div class="row">
+
+            @foreach (var vt in Model.VoiceTests)
+            {
+                <div class="col-md-4">
+                    <p>@vt.VoiceTestTitle</p>
+                    <audio controls>
+                        <source src="@vt.VoiceTestUrl" type="audio/mp3" />
+                    </audio>
+                </div>
+            }
+
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+    </div>
+</div><!-- /.modal-content -->

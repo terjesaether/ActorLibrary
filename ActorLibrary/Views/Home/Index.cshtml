@@ -83,7 +83,7 @@
         {
             <p>Ingenting å vise ...</p>
         }
-        }
+    }
 
     @foreach (var actor in Model)
     {
@@ -91,63 +91,65 @@
         //BOXEN BEGYNNER HER
 
         <div class="col-md-3 @alternateBgr actor-box">
-            <a href="/Home/Details/@actor.ActorId">
-                <div class="profile-img">
+            @*<a href="#" class="anchorDetail" data-id="@actor.ActorId">*@
+                <a href="/Home/Details/@actor.ActorId">
+                    <div class="profile-img">
 
 
-                    <img class="img-responsive" src="@actor.ImgUrl" alt="Profil" />
+                        <img class="img-responsive" src="@actor.ImgUrl" alt="Profil" />
 
-                </div>
-                <div class="col-md-12 no-underline">
+                    </div>
                     <h3>
-
                         @actor.FullName
+
                     </h3>
-                    <br />
-                    @if (actor.VoiceTests.Count > 0)
+                </a>
+                <div class="col-md-12 no-underline">
+
+            
+            <br />
+            @if (actor.VoiceTests.Count > 0)
+            {
+
+                <ul class="list-group">
+
+                    @foreach (var vt in actor.VoiceTests.Take(3))
                     {
 
-                        <ul class="list-group">
+                        <li class="list-group-item">
+                            @Html.DisplayFor(vtItem => vt.VoiceTestTitle)
+                            <audio controls>
+                                <source src="@vt.VoiceTestUrl" type="audio/mp3" />
+                            </audio>
 
-                            @foreach (var vt in actor.VoiceTests.Take(3))
-                    {
+                        </li>
 
-                                <li class="list-group-item">
-                                    @Html.DisplayFor(vtItem => vt.VoiceTestTitle)
-                                    <audio controls>
-                                        <source src="@vt.VoiceTestUrl" type="audio/mp3" />
-                                    </audio>
-
-                                </li>
-
-                            }
-
-
-
-                            <li class="list-group-item">
-                                <span class="glyphicon glyphicon-plus">
-                                    @Html.ActionLink(" ", "AddAudioFiles", "Home", new { id = actor.ActorId }, new { @class = "" })
-
-                                </span>
-                            </li>
-                        </ul>
-                    }
-                    else
-                    {
-                        <p>Det er ikke lagt til noen stemmeprøver.</p>
-                            <p>Legg til noen @Html.ActionLink("her.", "AddAudioFiles", new { id = actor.ActorId }) </p>
                     }
 
 
-                    <p>
-                        @*@Html.ActionLink("Rediger", "Edit", new { id = actor.ActorId }, new { @class = "btn btn-default" })*@
-                        @*@Html.ActionLink("Detaljer", "Details", "Home", new { id = actor.ActorId }, new { @class = "btn btn-default" })*@
+                    <li class="list-group-item">
+                           
+                            <a href=@("Home/AddAudioFiles/"+actor.ActorId) class="glyphicon glyphicon-plus" title="Add voicetests ..."></a>
+                            <a href="#" class="anchorDetail glyphicon glyphicon-open" data-id="@actor.ActorId" title="See more voicetests ..."></a>
+                        
+                    </li>
+                </ul>
+            }
+            else
+            {
+                <p>Det er ikke lagt til noen stemmeprøver. Legg til noen @Html.ActionLink("her.", "AddAudioFiles", new { id = actor.ActorId }) </p>
+            }
 
 
-                    </p>
-                </div>
-            </a>
-        </div> @*BOXEN SLUTTER HER*@
+            <p>
+                @*@Html.ActionLink("Rediger", "Edit", new { id = actor.ActorId }, new { @class = "btn btn-default" })*@
+                @*@Html.ActionLink("Detaljer", "Details", "Home", new { id = actor.ActorId }, new { @class = "btn btn-default" })*@
+
+
+            </p>
+        </div>
+
+    </div> @*BOXEN SLUTTER HER*@
 
 
     if (counter % 4 == 0)
@@ -158,52 +160,71 @@
         counter++;
 
     }
-</div>
+    </div>
 
 
+<div id='myModal' class='modal fade'>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
 
-@section scripts {
-    <script src="~/Scripts/bootstrap-select.min.js"></script>
-    <script>
+</div> 
 
-        $(document).ready(function () {
-            $('.selectpicker').selectpicker({
-                //style: 'btn-info',
-                size: 8,
-                noneSelectedText: 'Ingen dialekt valgt ...'
+    @section scripts {
+        <script src="~/Scripts/bootstrap-select.min.js"></script>
+        <script>
+            var showDetailsUrl = '/Home/DetailModal';
+
+            $(document).ready(function () {
+                $('.selectpicker').selectpicker({
+                    //style: 'btn-info',
+                    size: 8,
+                    noneSelectedText: 'Ingen dialekt valgt ...'
+
+                });
+
+                $("audio").on("play", function () {
+                    $("audio").not(this).each(function (index, audio) {
+                        audio.pause();
+                    });
+                });
 
             });
 
-            $('video,audio').mediaelementplayer(
-            {
-                audioWidth: "100%",
-                startVolume: 0.8,
-                pauseOtherPlayers: true,
-                enableKeyboard: true
-            }
-            );
-        });
+            $(".anchorDetail").click(function () {
+                debugger;
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                var options = { "backdrop": "static", keyboard: true };
+                $.ajax({
+                    type: "GET",
+                    url: showDetailsUrl,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        debugger; 
+                        $('#myModalContent').html(data); // data viser faktisk _PartialView og modell fra Action
+                        $('#myModal').modal(options);
+                        $('#myModal').modal('show');
+
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+            //$("#closebtn").on('click',function(){  
+            //    $('#myModal').modal('hide');    
+
+            $("#closbtn").click(function () {
+                $('#myModal').modal('hide');
+            });
 
 
 
-        $('').on('submit', function (e) {
-            e.preventDefault();
-            //var form = $('#sortForm').serializeObject();
-            //alert("sorrrtAge");
-            $.post("sort/sortbyagerange",
-                { 'form': $("#sortForm").serialize() })
 
-
-            .done(function (data) {
-                console.log(data);
-                console.log("Success");
-                //window.location.href = "/";
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                alert("Error");
-                //alert(jqXHR.responseText || textStatus);
-                console.error(errorThrown);
-            })
-        });
-    </script>
-}
+        </script>
+    }

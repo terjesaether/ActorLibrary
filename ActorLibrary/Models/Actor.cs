@@ -51,16 +51,19 @@ namespace ActorLibrary.Models
         public string Comment { get; set; }
 
         [Display(Name = "Kjønn")]
-        public string ActorGenderId { get; set; }
+        public int ActorGenderId { get; set; }
 
         //public virtual Gender Gender { get; set; }
 
         public DateTime? AddedDate { get; set; }
 
         [Display(Name = "Dialekt")]
-        public virtual List<Dialect> Dialects { get; set; }
+        public virtual ICollection<Dialect> Dialects { get; set; }
 
-        public virtual List<VoiceTest> VoiceTests { get; set; }
+        //[Display(Name = "Dialekt")]
+        //public virtual ICollection<DialectToActor> DialectToActors { get; set; }
+
+        public virtual ICollection<VoiceTest> VoiceTests { get; set; }
 
         [Display(Name = "Fullt navn")]
         public string FullName
@@ -122,9 +125,14 @@ namespace ActorLibrary.Models
     {
         [Key]
         public int VoiceTestId { get; set; }
+        [Display(Name = "Tittel")]
         public string VoiceTestTitle { get; set; }
+        [Display(Name = "Kommentar")]
         public string Comment { get; set; }
+
         public string VoiceTestUrl { get; set; }
+        // Lurt! Da kan man finne tilhørende Actor og lettere slette VoiceTest:
+        public virtual int ActorId { get; set; }
     }
 
     public class Gender
@@ -145,27 +153,11 @@ namespace ActorLibrary.Models
 
     }
     // Listen over dialektnavnene (Trønder, Nordlending osv):
-    public class DialectName
-    {
-        [Key]
-        public int DialectListId { get; set; }
-        [Display(Name = "Dialektnavn:")]
-        public string DialectListName { get; set; }
 
-    }
 
-    // En Dialekt til Actor
-    public class Dialect
-    {
-        [Key]
-        public int DialectId { get; set; }
-        public virtual DialectName TheDialectName { get; set; }
-        public string DialectName { get; set; }
-        public int ActorId { get; set; }
 
-    }
 
-    //class DialectToActor
+    //public class DialectToActor
     //{
     //    [Key]
     //    public int DialectToActorId { get; set; }
